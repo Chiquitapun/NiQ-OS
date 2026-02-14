@@ -14,7 +14,7 @@ app.set('trust proxy', 1);
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://leafy.github.io', // Replace 'leafy' with your actual GitHub username
+    origin: 'https://Chiquitapun.github.io', 
     methods: ['POST']
 }));
 
