@@ -6,9 +6,12 @@ const nodemailer = require('nodemailer');
 const rateLimit = require('express-rate-limit');
 const fs = require('fs'); // Added for file system cleanup
 
-app.set('trust proxy', 1);
+
 
 const app = express();
+
+app.set('trust proxy', 1);
+
 app.use(express.json());
 app.use(cors());
 
