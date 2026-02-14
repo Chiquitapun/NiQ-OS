@@ -396,7 +396,7 @@ async function transmitEmail() {
         statusText.innerText = "TRANSMITTING_JSON...";
 
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        const API_BASE_URL = isLocal ? 'http://localhost:3000' : 'https://your-app.render.com';
+        const API_BASE_URL = isLocal ? 'http://localhost:3000' : 'https://niq-os.onrender.com/';
 
         const response = await fetch(`${API_BASE_URL}/api/contact`, {
             method: 'POST',
