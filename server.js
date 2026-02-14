@@ -13,7 +13,10 @@ const app = express();
 app.set('trust proxy', 1);
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://leafy.github.io', // Replace 'leafy' with your actual GitHub username
+    methods: ['POST']
+}));
 
 // Ensure 'uploads' directory exists on boot
 const uploadDir = './uploads';
