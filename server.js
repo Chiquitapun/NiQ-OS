@@ -17,7 +17,7 @@ app.use(cors({
     origin: 'https://chiquitapun.github.io', 
     methods: ['POST']
 }));
-
+//test
 // Ensure 'uploads' directory exists on boot
 const uploadDir = './uploads';
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
