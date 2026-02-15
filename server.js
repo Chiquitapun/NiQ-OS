@@ -22,7 +22,7 @@ app.use(cors({
     methods: ['POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
-app.options('*', cors()); // <--- CRITICAL: This answers the browser's hidden security check
+app.options('/*', cors());
 
 // Ensure 'uploads' directory exists
 const uploadDir = './uploads';
