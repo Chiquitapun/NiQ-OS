@@ -1,7 +1,8 @@
 require('dotenv').config();
 const dns = require('dns');
 
-// 1. RENDER NETWORK FIX: Force IPv4 to prevent ENETUNREACH crash
+// 1. NETWORK FIX: Force IPv4. This stops the "ENETUNREACH" and "Timeout" errors 
+// shown in your logs (Image 12).
 dns.setDefaultResultOrder('ipv4first'); 
 
 const express = require('express');
@@ -13,22 +14,32 @@ const fs = require('fs');
 const app = express();
 app.set('trust proxy', 1);
 
-// 2. JSON PARSER MUST BE BEFORE ROUTES
+// 2. PARSER: Must come before routes
 app.use(express.json());
 
-// 3. STRICT CORS + PREFLIGHT FIX
+// 3. UPDATED CORS: Allowing both your GitHub origins to stop the mismatch error
+const allowedOrigins = [
+    'https://chiquitapun.github.io',
+    'https://leafy.github.io'
+];
+
 app.use(cors({
-    origin: 'https://chiquitapun.github.io', // Make sure this matches where you are testing!
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('CORS_NOT_ALLOWED'));
+        }
+    },
     methods: ['POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
 
+// 4. PATH ERROR FIX: Node v22/Express 5 requires regex for wildcards.
+// This fixes the "Missing parameter name" crash in Image 13.
+app.options('(.*)', cors()); 
 
-// Ensure 'uploads' directory exists
-const uploadDir = './uploads';
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
-
-// 4. MAIL TRANSPORTER
+// 5. UPDATED MAIL TRANSPORTER: Added a longer timeout for cloud networks
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -37,46 +48,40 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
+    connectionTimeout: 10000, // 10 seconds
+    greetingTimeout: 10000,
     tls: {
         rejectUnauthorized: false 
     }
 });
 
-// 5. RELAXED BOUNCER (Allows 10 tests per 15 minutes so you don't get 429 locked out)
+// 6. TESTING LIMITER: 10 tries every 15 mins so you don't get 429-locked
 const contactLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, 
     max: 10, 
-    message: { 
-        error: "ACCESS_DENIED: Rate limit exceeded",
-        retryAfter: "Please try again later."
-    },
-    standardHeaders: true, 
-    legacyHeaders: false, 
+    message: { error: "LIMIT_REACHED" }
 });
 
-// 6. THE UPLINK ROUTE
+// 7. THE UPLINK ROUTE
 app.post('/api/contact', contactLimiter, async (req, res) => {
     const { email, message } = req.body; 
 
-    // Safety check to prevent the "req.body is undefined" error
     if (!email || !message) {
-        return res.status(400).send({ error: "MISSING_DATA" });
+        return res.status(400).send({ error: "INCOMPLETE_DATA" });
     }
 
     try {
-        const mailOptions = {
+        await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: process.env.EMAIL_USER,
             replyTo: email,
             subject: `NiQ OS: Message from ${email}`,
             text: message
-        };
-
-        await transporter.sendMail(mailOptions);
+        });
         res.status(200).send({ success: true });
     } catch (error) {
         console.error("MAIL_ERROR:", error);
-        res.status(500).send({ error: "UPLINK_CRASHED" });
+        res.status(500).send({ error: "UPLINK_TIMEOUT" });
     }
 });
 
