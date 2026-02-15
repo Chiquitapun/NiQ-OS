@@ -22,7 +22,8 @@ app.use(cors({
     methods: ['POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
-app.options('/*', cors());
+
+app.options('(.*)', cors());
 
 // Ensure 'uploads' directory exists
 const uploadDir = './uploads';
