@@ -35,9 +35,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }));
 
-// 4. PATH ERROR FIX: Node v22/Express 5 requires regex for wildcards.
-// This fixes the "Missing parameter name" crash in Image 13.
-app.options('(.*)', cors()); 
 
 // 5. UPDATED MAIL TRANSPORTER: Added a longer timeout for cloud networks
 const transporter = nodemailer.createTransport({
