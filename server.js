@@ -14,10 +14,13 @@ app.set('trust proxy', 1);
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://chiquitapun.github.io', 
-    methods: ['POST']
+    origin: 'https://leafy.github.io', 
+    methods: ['POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type']
 }));
-//test
+
+app.options('*', cors());
+
 // Ensure 'uploads' directory exists on boot
 const uploadDir = './uploads';
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
