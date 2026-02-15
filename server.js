@@ -30,10 +30,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }));
 
-// PATH ERROR FIX: Node v22 requires (.*) instead of * to avoid the crash 
-// seen in your logs (Image 13/14)
-app.options(cors()); 
-
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
