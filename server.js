@@ -19,8 +19,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }));
 
-app.options('*', cors());
-
 // Ensure 'uploads' directory exists on boot
 const uploadDir = './uploads';
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
