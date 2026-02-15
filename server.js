@@ -14,7 +14,7 @@ app.set('trust proxy', 1);
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://leafy.github.io', 
+    origin: 'https://chiquitapun.github.io', 
     methods: ['POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
