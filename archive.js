@@ -375,14 +375,20 @@ function triggerProjectDownload(fileName) {
 // ==========================================
 
 async function transmitEmail() {
+    // 1. SELECT THE UI ELEMENTS (The missing link)
+    // Make sure these IDs match your HTML! 
+    const modal = document.getElementById('transmission-modal'); 
+    const progressBar = document.getElementById('transmission-bar');
+    const relayStatus = document.getElementById('transmission-status'); // Renamed to avoid music player conflict
+
     const email = document.getElementById('contact-email').value;
     const message = document.getElementById('contact-message').value;
-    const hp = document.getElementById('contact-hp').value; // Get honeypot value
+    const hp = document.getElementById('contact-hp').value; 
 
-    // 1. REGEX GATE: Only allow valid email formats
+    // 2. REGEX GATE
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        alert("CRITICAL_ERROR: INVALID_EMAIL_FORMAT\nPlease enter a valid uplink address.");
+        alert("CRITICAL_ERROR: INVALID_EMAIL_FORMAT");
         return;
     }
 
@@ -391,9 +397,10 @@ async function transmitEmail() {
         return;
     }
 
-    modal.classList.remove('hidden');
-    progressBar.style.width = '10%';
-    statusText.innerText = "PACKET_HANDSHAKE...";
+    // 3. START UI ANIMATION
+    if(modal) modal.classList.remove('hidden');
+    if(progressBar) progressBar.style.width = '10%';
+    if(relayStatus) relayStatus.innerText = "PACKET_HANDSHAKE...";
 
     try {
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -402,26 +409,27 @@ async function transmitEmail() {
         const response = await fetch(`${API_BASE_URL}/api/contact`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, message, hp }) // Send the trap field
+            body: JSON.stringify({ email, message, hp })
         });
 
         if (response.ok) {
-            progressBar.style.width = '100%';
-            statusText.innerText = "SUCCESS: DATA_RELAY_CONFIRMED";
+            if(progressBar) progressBar.style.width = '100%';
+            if(relayStatus) relayStatus.innerText = "SUCCESS: DATA_RELAY_CONFIRMED";
             
             await new Promise(r => setTimeout(r, 2000));
             
-            modal.classList.add('hidden');
+            if(modal) modal.classList.add('hidden');
             closeWindow('win-contact');
             
             document.getElementById('contact-email').value = "";
             document.getElementById('contact-message').value = "";
         } else {
-            statusText.innerText = "ERROR: UPLINK_REJECTED";
+            if(relayStatus) relayStatus.innerText = "ERROR: UPLINK_REJECTED";
             setTimeout(() => modal.classList.add('hidden'), 3000);
         }
     } catch (error) {
-        statusText.innerText = "CRITICAL_FAILURE: SERVER_OFFLINE";
+        console.error("Transmission Error:", error);
+        if(relayStatus) relayStatus.innerText = "CRITICAL_FAILURE: SERVER_OFFLINE";
         setTimeout(() => modal.classList.add('hidden'), 4000);
     }
 }
