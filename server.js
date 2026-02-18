@@ -47,7 +47,7 @@ const contactLimiter = rateLimit({
 });
 
 app.post('/api/contact', contactLimiter, async (req, res) => {
-    const { email, message } = req.body; 
+    const { email, message, hp } = req.body; 
 
     if (!email || !message) {
         return res.status(400).send({ error: "MISSING_FIELDS" });
