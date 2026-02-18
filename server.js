@@ -53,13 +53,28 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         return res.status(400).send({ error: "MISSING_FIELDS" });
     }
 
+    if (hp) {
+        console.warn("BOT_DETECTED: Honeypot triggered.");
+        return res.status(400).send({ error: "BOT_DETECTED" });
+    }
+
+    // 2. BOUNCER: Proper Email Check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+        return res.status(400).send({ error: "INVALID_EMAIL" });
+    }
+
+    if (!message || message.length < 5) {
+        return res.status(400).send({ error: "MESSAGE_TOO_SHORT" });
+    }
+
     try {
         const { data, error } = await resend.emails.send({
             from: 'NiQ OS <onboarding@resend.dev>',
             to: [process.env.MY_EMAIL], 
             replyTo: email,
             subject: `NiQ OS: Message from ${email}`,
-            text: message
+            text: `Sender: ${email}\n\nMessage: ${message}`
         });
 
         if (error) {

@@ -377,12 +377,23 @@ function triggerProjectDownload(fileName) {
 async function transmitEmail() {
     const email = document.getElementById('contact-email').value;
     const message = document.getElementById('contact-message').value;
+    // HONEYPOT: Add this input to your HTML (hidden) to catch bots
+    const honeypot = document.getElementById('contact-hp')?.value; 
+
     const modal = document.getElementById('upload-modal');
     const progressBar = document.getElementById('modal-progress-bar');
     const statusText = document.getElementById('modal-status-text');
 
+    // 1. BASIC VALIDATION
     if (!email || !message) {
         alert("CRITICAL_ERROR: FIELDS_EMPTY");
+        return;
+    }
+
+    // 2. EMAIL SYNTAX VALIDATION (Regex)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("CRITICAL_ERROR: INVALID_EMAIL_FORMAT");
         return;
     }
 
@@ -400,10 +411,12 @@ async function transmitEmail() {
 
         const response = await fetch(`${API_BASE_URL}/api/contact`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json' // Tell the server to expect JSON
-            },
-            body: JSON.stringify({ email, message }) // Send as JSON string
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email, 
+                message, 
+                hp: honeypot // Send the honeypot value to the server
+            }) 
         });
 
         if (response.ok) {
