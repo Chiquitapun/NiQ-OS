@@ -377,23 +377,17 @@ function triggerProjectDownload(fileName) {
 async function transmitEmail() {
     const email = document.getElementById('contact-email').value;
     const message = document.getElementById('contact-message').value;
-    // HONEYPOT: Add this input to your HTML (hidden) to catch bots
-    const honeypot = document.getElementById('contact-hp')?.value; 
+    const hp = document.getElementById('contact-hp').value; // Get honeypot value
 
-    const modal = document.getElementById('upload-modal');
-    const progressBar = document.getElementById('modal-progress-bar');
-    const statusText = document.getElementById('modal-status-text');
-
-    // 1. BASIC VALIDATION
-    if (!email || !message) {
-        alert("CRITICAL_ERROR: FIELDS_EMPTY");
+    // 1. REGEX GATE: Only allow valid email formats
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("CRITICAL_ERROR: INVALID_EMAIL_FORMAT\nPlease enter a valid uplink address.");
         return;
     }
 
-    // 2. EMAIL SYNTAX VALIDATION (Regex)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert("CRITICAL_ERROR: INVALID_EMAIL_FORMAT");
+    if (!message || message.trim().length < 5) {
+        alert("CRITICAL_ERROR: MESSAGE_TOO_SHORT");
         return;
     }
 
@@ -402,21 +396,13 @@ async function transmitEmail() {
     statusText.innerText = "PACKET_HANDSHAKE...";
 
     try {
-        await new Promise(r => setTimeout(r, 800));
-        progressBar.style.width = '45%';
-        statusText.innerText = "TRANSMITTING_JSON...";
-
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         const API_BASE_URL = isLocal ? 'http://localhost:3000' : 'https://niq-os.onrender.com';
 
         const response = await fetch(`${API_BASE_URL}/api/contact`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                email, 
-                message, 
-                hp: honeypot // Send the honeypot value to the server
-            }) 
+            body: JSON.stringify({ email, message, hp }) // Send the trap field
         });
 
         if (response.ok) {
