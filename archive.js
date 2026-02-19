@@ -375,61 +375,54 @@ function triggerProjectDownload(fileName) {
 // ==========================================
 
 async function transmitEmail() {
-    // 1. SELECT THE UI ELEMENTS (The missing link)
-    // Make sure these IDs match your HTML! 
-    const modal = document.getElementById('transmission-modal'); 
-    const progressBar = document.getElementById('transmission-bar');
-    const relayStatus = document.getElementById('transmission-status'); // Renamed to avoid music player conflict
-
     const email = document.getElementById('contact-email').value;
     const message = document.getElementById('contact-message').value;
-    const hp = document.getElementById('contact-hp').value; 
+    const modal = document.getElementById('upload-modal');
+    const progressBar = document.getElementById('modal-progress-bar');
+    const statusText = document.getElementById('modal-status-text');
 
-    // 2. REGEX GATE
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert("CRITICAL_ERROR: INVALID_EMAIL_FORMAT");
+    if (!email || !message) {
+        alert("CRITICAL_ERROR: FIELDS_EMPTY");
         return;
     }
 
-    if (!message || message.trim().length < 5) {
-        alert("CRITICAL_ERROR: MESSAGE_TOO_SHORT");
-        return;
-    }
-
-    // 3. START UI ANIMATION
-    if(modal) modal.classList.remove('hidden');
-    if(progressBar) progressBar.style.width = '10%';
-    if(relayStatus) relayStatus.innerText = "PACKET_HANDSHAKE...";
+    modal.classList.remove('hidden');
+    progressBar.style.width = '10%';
+    statusText.innerText = "PACKET_HANDSHAKE...";
 
     try {
+        await new Promise(r => setTimeout(r, 800));
+        progressBar.style.width = '45%';
+        statusText.innerText = "TRANSMITTING_JSON...";
+
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         const API_BASE_URL = isLocal ? 'http://localhost:3000' : 'https://niq-os.onrender.com';
 
         const response = await fetch(`${API_BASE_URL}/api/contact`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, message, hp })
+            headers: {
+                'Content-Type': 'application/json' // Tell the server to expect JSON
+            },
+            body: JSON.stringify({ email, message }) // Send as JSON string
         });
 
         if (response.ok) {
-            if(progressBar) progressBar.style.width = '100%';
-            if(relayStatus) relayStatus.innerText = "SUCCESS: DATA_RELAY_CONFIRMED";
+            progressBar.style.width = '100%';
+            statusText.innerText = "SUCCESS: DATA_RELAY_CONFIRMED";
             
             await new Promise(r => setTimeout(r, 2000));
             
-            if(modal) modal.classList.add('hidden');
+            modal.classList.add('hidden');
             closeWindow('win-contact');
             
             document.getElementById('contact-email').value = "";
             document.getElementById('contact-message').value = "";
         } else {
-            if(relayStatus) relayStatus.innerText = "ERROR: UPLINK_REJECTED";
+            statusText.innerText = "ERROR: UPLINK_REJECTED";
             setTimeout(() => modal.classList.add('hidden'), 3000);
         }
     } catch (error) {
-        console.error("Transmission Error:", error);
-        if(relayStatus) relayStatus.innerText = "CRITICAL_FAILURE: SERVER_OFFLINE";
+        statusText.innerText = "CRITICAL_FAILURE: SERVER_OFFLINE";
         setTimeout(() => modal.classList.add('hidden'), 4000);
     }
 }

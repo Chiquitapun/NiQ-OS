@@ -7,9 +7,6 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 
-// FIX: Tells Express to trust Render's proxy so rate-limiting works!
-app.set('trust proxy', 1);
-
 // 1. DYNAMIC CORS FIX: Includes your local testing URLs
 const allowedOrigins = [
     'https://chiquitapun.github.io',
@@ -50,23 +47,10 @@ const contactLimiter = rateLimit({
 });
 
 app.post('/api/contact', contactLimiter, async (req, res) => {
-    const { email, message, hp } = req.body; 
+    const { email, message } = req.body; 
 
-    // 1. THE TRAP: If honeypot is filled, it's a bot.
-    if (hp) {
-        console.warn("SYSTEM: BOT_DETECTION_TRIGGERED");
-        return res.status(400).send({ error: "BOT_DETECTED" });
-    }
-
-    // 2. THE GATE: Server-side email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-        return res.status(400).send({ error: "INVALID_EMAIL" });
-    }
-
-    // 3. THE LIMIT: Prevent massive spam messages
-    if (!message || message.length > 2000) {
-        return res.status(400).send({ error: "PAYLOAD_TOO_LARGE" });
+    if (!email || !message) {
+        return res.status(400).send({ error: "MISSING_FIELDS" });
     }
 
     try {
@@ -75,7 +59,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             to: [process.env.MY_EMAIL], 
             replyTo: email,
             subject: `NiQ OS: Message from ${email}`,
-            text: `Sender: ${email}\n\nMessage:\n${message}`
+            text: message
         });
 
         if (error) {
