@@ -30,11 +30,18 @@ app.use(cors({
 
 // Initialize the API Mailer
 const resend = new Resend(process.env.RESEND_API_KEY);
+// Calculate milliseconds in a day: 24 hours * 60 minutes * 60 seconds * 1000 ms
+const dailyLimitMs = 24 * 60 * 60 * 1000; 
 
 const contactLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, 
-    max: 10, 
-    message: { error: "LIMIT_EXCEEDED" }
+    windowMs: dailyLimitMs, 
+    max: 2, // Limit each IP to 2 requests per windowMs
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    message: { 
+        error: "DAILY_LIMIT_EXCEEDED",
+        message: "System: Maximum of 2 transmissions allowed per 24-hour cycle."
+    }
 });
 
 app.post('/api/contact', contactLimiter, async (req, res) => {

@@ -432,7 +432,15 @@ async function transmitEmail() {
             document.getElementById('contact-message').value = "";
         } else {
             const errorData = await response.json();
-            statusText.innerText = `ERROR: ${errorData.error || 'UPLINK_REJECTED'}`;
+            
+            // Specifically check for our new error code
+            if (errorData.error === "DAILY_LIMIT_EXCEEDED") {
+                statusText.innerText = "ERROR: DAILY_QUOTA_REACHED";
+                alert("ACCESS DENIED: You have reached the maximum of 2 messages per day.");
+            } else {
+                statusText.innerText = `ERROR: ${errorData.error || 'UPLINK_REJECTED'}`;
+            }
+            
             setTimeout(() => modal.classList.add('hidden'), 3000);
         }
     } catch (error) {
