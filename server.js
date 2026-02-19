@@ -2,42 +2,33 @@ require('dns').setDefaultResultOrder('ipv4first');
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { Resend } = require('resend'); 
+const { Resend } = require('resend'); // <--- Swapped Nodemailer for Resend
 const rateLimit = require('express-rate-limit');
 
 const app = express();
+app.set('trust proxy', 1);
+app.use(express.json());
 
-// 1. DYNAMIC CORS FIX: Includes your local testing URLs
+// CORS configuration
 const allowedOrigins = [
     'https://chiquitapun.github.io',
-    'https://leafy.github.io',
-    'http://localhost:5500',      // Common VS Code Live Server port
-    'http://127.0.0.1:5500',    // Alternative local IP
-    'http://localhost:3000'
+    'https://leafy.github.io'
 ];
 
 app.use(cors({
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl) 
-        // or those in our whitelist
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
-            console.log("CORS REJECTED ORIGIN:", origin);
             callback(new Error('CORS_NOT_ALLOWED'));
         }
     },
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type']
 }));
 
-// 2. PARSER: Must come after CORS but before routes
-app.use(express.json());
 
-// 3. PATH FIX: We no longer use app.options('*'). 
-// Express 5/Node 22 handles preflight automatically via the middleware above.
-// This prevents the PathError crash seen in your logs.
-
+// Initialize the API Mailer
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const contactLimiter = rateLimit({
@@ -54,20 +45,21 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     }
 
     try {
+        // Sending via HTTP API instead of SMTP to bypass Render's firewall
         const { data, error } = await resend.emails.send({
-            from: 'NiQ OS <onboarding@resend.dev>',
-            to: [process.env.MY_EMAIL], 
+            from: 'NiQ OS <onboarding@resend.dev>', // Resend's free tier sending address
+            to: [process.env.MY_EMAIL], // Your verified email address
             replyTo: email,
             subject: `NiQ OS: Message from ${email}`,
             text: message
         });
 
         if (error) {
-            console.error("RESEND_ERROR:", error);
-            return res.status(500).send({ error: "UPLINK_FAILURE" });
+            console.error("RESEND_API_ERROR:", error);
+            return res.status(500).send({ error: "TRANSMISSION_FAILED" });
         }
 
-        res.status(200).send({ success: true });
+        res.status(200).send({ success: true, id: data.id });
     } catch (error) {
         console.error("SYSTEM_ERROR:", error);
         res.status(500).send({ error: "NETWORK_TIMEOUT" });
