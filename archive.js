@@ -374,15 +374,28 @@ function triggerProjectDownload(fileName) {
 // 6. CONTACT / EMAIL UPLINK LOGIC
 // ==========================================
 
+function validateEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
 async function transmitEmail() {
-    const email = document.getElementById('contact-email').value;
-    const message = document.getElementById('contact-message').value;
+    const email = document.getElementById('contact-email').value.trim();
+    const message = document.getElementById('contact-message').value.trim();
     const modal = document.getElementById('upload-modal');
     const progressBar = document.getElementById('modal-progress-bar');
     const statusText = document.getElementById('modal-status-text');
 
+    // Check if fields are empty
     if (!email || !message) {
         alert("CRITICAL_ERROR: FIELDS_EMPTY");
+        return;
+    }
+
+    // NEW: Check if email format is valid
+    if (!validateEmail(email)) {
+        alert("CRITICAL_ERROR: INVALID_EMAIL_FORMAT\nEnsure address contains '@' and a valid domain.");
+        document.getElementById('contact-email').focus();
         return;
     }
 
@@ -401,9 +414,9 @@ async function transmitEmail() {
         const response = await fetch(`${API_BASE_URL}/api/contact`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json' // Tell the server to expect JSON
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, message }) // Send as JSON string
+            body: JSON.stringify({ email, message })
         });
 
         if (response.ok) {
@@ -418,7 +431,8 @@ async function transmitEmail() {
             document.getElementById('contact-email').value = "";
             document.getElementById('contact-message').value = "";
         } else {
-            statusText.innerText = "ERROR: UPLINK_REJECTED";
+            const errorData = await response.json();
+            statusText.innerText = `ERROR: ${errorData.error || 'UPLINK_REJECTED'}`;
             setTimeout(() => modal.classList.add('hidden'), 3000);
         }
     } catch (error) {
