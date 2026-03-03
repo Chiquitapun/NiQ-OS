@@ -14,7 +14,7 @@ const folderConfigs = {
     "Music": []
 };
 
-
+const VAULT_BASE_URL = "https://vault.chiquitapun.com";
 
 
 // ==========================================

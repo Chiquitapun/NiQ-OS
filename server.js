@@ -12,7 +12,8 @@ app.use(express.json());
 // CORS configuration
 const allowedOrigins = [
     'https://chiquitapun.github.io',
-    'https://leafy.github.io'
+    'https://chipun.com',
+    'https://www.chipun.com'
 ];
 
 app.use(cors({
