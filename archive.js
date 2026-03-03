@@ -1,21 +1,24 @@
 // ==========================================
 // 1. DATA CONFIGURATION
 // ==========================================
+const VAULT_URL = "https://vault.chipun.com";
+
+
 const folderConfigs = {
     "Resources": [
-        { type: 'image', url: './res/vault_window.png', label: 'Vault UI' }
+        { type: 'image', url: './res/vault_window.png', label: 'Vault UI' },
+        { type: 'image', url: `${VAULT_URL}/NiQ.png`, label: 'PunPun God' }
     ],
     "3D": [],
     "Fonts": [],
     "Greenscreen": [],
     "Overlays": [],
     "Textures": [],
-    "SFX": [],
+    "SFX": [
+        //{ type: 'audio', url: `${VAULT_URL}/boot_chime.wav`, label: 'OS_BOOT.WAV' }
+    ],
     "Music": []
 };
-
-const VAULT_BASE_URL = "https://vault.chiquitapun.com";
-
 
 // ==========================================
 // 2. TASKBAR & SYSTEM LOGIC (The "Missing" Parts)
@@ -178,6 +181,31 @@ function closeWindow(id) {
     const win = document.getElementById(id);
     if (win) win.classList.add('hidden');
 }
+
+/**
+ * Vault Diagnostic
+ * Tests the connection to your Backblaze bucket via Cloudflare
+ */
+async function testVaultConnection(fileName) {
+    console.log(`%c[SYSTEM] Initializing Vault Link: ${VAULT_URL}/${fileName}`, "color: #00ff00");
+    
+    try {
+        const response = await fetch(`${VAULT_URL}/${fileName}`, { method: 'HEAD' });
+        
+        if (response.ok) {
+            console.log("%c[SUCCESS] Vault connection established. File located.", "color: #00ff00; font-weight: bold;");
+            return true;
+        } else {
+            console.error(`[ERROR] Vault responded with status: ${response.status}`);
+            console.log("%c[TIP] Check if the file is public in Backblaze and that your Transform Rule is correct.", "color: #ffaa00");
+            return false;
+        }
+    } catch (err) {
+        console.error("[CRITICAL] Network Error: Could not reach vault.", err);
+        return false;
+    }
+}
+
 
 // ==========================================
 // 4. MUSIC PLAYER LOGIC
@@ -357,16 +385,17 @@ function openDownloadPrompt(name, thumb, fileName) {
  */
 function triggerProjectDownload(fileName) {
     // This is the "Backend" path. Replace with your actual server URL if needed.
-    const fileUrl = `./files/${fileName}`; 
+    const fileUrl = `${VAULT_URL}/${fileName}`; 
 
     const link = document.createElement('a');
     link.href = fileUrl;
+    link.target = "_blank";
     link.download = fileName; // This triggers the download attribute
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    console.log(`System: Downloading ${fileName} from secure archive...`);
+    console.log(`%c[SYSTEM] Fetching ${fileName} from VAULT...`, "color: #A221A2");
 }
 
 
