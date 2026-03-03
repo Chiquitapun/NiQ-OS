@@ -149,11 +149,21 @@ button[onclick="toggleStartMenu()"]:active {
     animation: crt-flicker 0.15s infinite;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     #win-notepad, #win-image-showcase {
         display: none !important;
     }
 }
+
+@media (max-width: 640px) {
+    .absolute.right-10.top-10.grid {
+        right: 50%;
+        transform: translateX(50%); /* Centers folders on mobile */
+        grid-template-cols: repeat(3, 1fr); /* 3 columns on mobile */
+        gap: 1rem;
+    }
+}
+
 
 /* Optional: Subtle pulse for the YouTube light in Start Menu */
 @keyframes pulse {

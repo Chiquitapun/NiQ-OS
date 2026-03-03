@@ -6,8 +6,7 @@ const VAULT_URL = "https://vault.chipun.com";
 
 const folderConfigs = {
     "Resources": [
-        { type: 'image', url: './res/vault_window.png', label: 'Vault UI' },
-        { type: 'image', url: `${VAULT_URL}/NiQ.png`, label: 'PunPun God' }
+        //{ type: 'image', url: `${VAULT_URL}/NiQ.png`, label: 'PunPun God' }
     ],
     "3D": [],
     "Fonts": [],
