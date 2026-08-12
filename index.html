@@ -21,8 +21,47 @@
     <div class="fixed inset-0 pointer-events-none z-[9998] backdrop-blur-[0.5px] bg-purple-900/5"></div>
     <div id="desktop" class="relative w-full h-full p-10 overflow-hidden">
 
-        <div id="win-image-showcase" class="window hidden md:flex absolute top-[10%] left-[55%] w-[400px] h-[620px] bg-zinc-900 border-2 border-purple-500 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] z-10 flex flex-col">
+        <div class="folder group flex flex-col items-center w-24 cursor-pointer" onclick="openWindow('win-works-directory')">
+    <div class="folder-icon w-16 h-16 bg-purple-900/30 border-2 border-purple-500 rounded-md group-hover:bg-purple-500/50 shadow-[4px_4px_0px_0px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center">
+        <div class="text-2xl opacity-60">📁</div>
+    </div>
+    <span class="text-[10px] mt-2 bg-black px-1 text-center border border-purple-900/50 uppercase text-purple-300 font-bold">WORKS</span>
+</div>
+
+<div id="win-works-directory" class="window hidden absolute top-[20%] left-[20%] w-[500px] max-w-[90vw] bg-zinc-900 border-2 border-purple-500 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] z-[60]">    
     <div class="window-header bg-purple-700 p-1 flex justify-between items-center cursor-move">
+        <span class="text-white text-[10px] font-bold px-2 uppercase">C:\USERS\NiQ\WORKS</span>
+        <button onclick="closeWindow('win-works-directory')" class="text-white px-2 hover:bg-red-500 transition-colors">×</button>
+    </div>
+    
+    <div class="p-4 grid grid-cols-3 gap-4 bg-black/60">
+        <!-- Sub-folder: Photography -->
+        <div class="folder group flex flex-col items-center cursor-pointer" onclick="openDynamicWindow('Photography')">
+            <div class="w-14 h-14 bg-purple-900/20 border border-purple-500/40 rounded flex items-center justify-center group-hover:bg-purple-500/30 transition-all">
+                <span class="text-2xl opacity-70">📷</span>
+            </div>
+            <span class="text-[9px] mt-1 text-purple-300 text-center font-bold uppercase">Photography</span>
+        </div>
+
+        <!-- Sub-folder: Edits -->
+        <div class="folder group flex flex-col items-center cursor-pointer" onclick="openDynamicWindow('Edits')">
+            <div class="w-14 h-14 bg-purple-900/20 border border-purple-500/40 rounded flex items-center justify-center group-hover:bg-purple-500/30 transition-all">
+                <span class="text-2xl opacity-70">🎬</span>
+            </div>
+            <span class="text-[9px] mt-1 text-purple-300 text-center font-bold uppercase">Edits</span>
+        </div>
+
+        <!-- Sub-folder: Drawings -->
+        <div class="folder group flex flex-col items-center cursor-pointer" onclick="openDynamicWindow('Drawings')">
+            <div class="w-14 h-14 bg-purple-900/20 border border-purple-500/40 rounded flex items-center justify-center group-hover:bg-purple-500/30 transition-all">
+                <span class="text-2xl opacity-70">🎨</span>
+            </div>
+            <span class="text-[9px] mt-1 text-purple-300 text-center font-bold uppercase">Drawings</span>
+        </div>
+    </div>
+</div>
+
+<div id="win-image-showcase" class="window hidden md:flex absolute top-[5%] left-[50%] w-[450px] h-[660px] max-w-[90vw] max-h-[85vh] bg-zinc-900 border-2 border-purple-500 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] z-10 flex flex-col">    <div class="window-header bg-purple-700 p-1 flex justify-between items-center cursor-move">
         <span class="text-white text-[10px] font-bold px-2 uppercase">C:\ARCHIVE\ART.JPG</span>
         <button onclick="closeWindow('win-image-showcase')" class="text-white px-2 hover:bg-red-500 transition-colors">×</button>
     </div>
@@ -70,14 +109,15 @@
     </div>
 
     <div class="flex-1 bg-black/20 relative">
-        <textarea 
-            class="w-full h-full bg-transparent text-purple-200 text-xs p-3 outline-none resize-none font-mono custom-scrollbar placeholder:text-purple-900/50"
-            placeholder="Type your notes here..."
-        >Resources not populated yet. . .
-        </textarea>
-        
-        <div class="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_2px]"></div>
-    </div>
+    <textarea 
+        class="w-full h-full bg-transparent text-purple-200 text-xs p-3 outline-none resize-none font-mono overflow-hidden placeholder:text-purple-900/50"
+        placeholder="guh..."
+    >Here are my Files and Works Showcased 
+    > Also Resources I use/used, if it interests you or you can use them yourselves
+</textarea>
+    
+    <div class="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_2px]"></div>
+</div>
 </div>
 
 
@@ -148,11 +188,11 @@
             <span class="text-[10px] mt-2 bg-black px-1 text-center border border-purple-900/50 uppercase text-purple-300">Fonts</span>
         </div>
 
-        <div class="folder group flex flex-col items-center w-24 cursor-pointer" onclick="openDynamicWindow('Greenscreen')">
+        <div class="folder group flex flex-col items-center w-24 cursor-pointer" onclick="openDynamicWindow('PNG/SVG')">
             <div class="folder-icon w-16 h-16 bg-purple-900/30 border-2 border-purple-500 rounded-md group-hover:bg-purple-500/50 shadow-[4px_4px_0px_0px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center">
-                <div class="w-10 h-8 bg-green-500 opacity-40 border border-white"></div>
+                <div class="w-10 h-8 border border-white rounded-sm relative overflow-hidden bg-[conic-gradient(#e5e7eb_90deg,#ffffff_90deg_180deg,#e5e7eb_180deg_270deg,#ffffff_270deg)] bg-[size:8px_8px] opacity-80"></div>
             </div>
-            <span class="text-[10px] mt-2 bg-black px-1 text-center border border-purple-900/50 uppercase text-purple-300">Greenscreen</span>
+            <span class="text-[10px] mt-2 bg-black px-1 text-center border border-purple-900/50 uppercase text-purple-300">PNG/SVG</span>
         </div>
 
         <div class="folder group flex flex-col items-center w-24 cursor-pointer" onclick="openDynamicWindow('Overlays')">
@@ -184,26 +224,27 @@
         </div>
     </div>
 
-    <div id="window-template" class="window hidden absolute w-[450px] bg-zinc-900 border-2 border-purple-500 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-[50]">
-        <div class="window-header bg-purple-700 p-1 flex justify-between items-center cursor-move">
-            <div class="flex items-center gap-2">
-                <span class="window-title text-white text-[10px] font-bold px-2 uppercase"></span>
-                <button class="download-all-btn bg-black/40 hover:bg-green-500/50 text-[9px] px-2 py-0.5 border border-white/20 text-white transition-colors flex items-center gap-1">
-                    💾 DOWNLOAD_ALL
-                </button>
-            </div>
-            <button class="close-btn text-white px-2 hover:bg-red-500 transition-colors">×</button>
-        </div>
-        <div class="window-content p-4 grid grid-cols-1 gap-6 max-h-[500px] overflow-y-auto custom-scrollbar bg-black/50">
-        </div>
-    </div>
+        <div id="window-template" class="window hidden absolute w-[600px] max-w-[90vw] bg-zinc-900 border-2 border-purple-500 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-[50]">   
+    <div class="window-header bg-purple-700 p-1 flex justify-between items-center cursor-move">
+        <div class="flex items-center gap-2">
+            
+            <span class="window-title text-white text-[10px] font-bold px-2 uppercase"></span>
+            
+            <button class="download-all-btn bg-black/40 hover:bg-green-500/50 text-[9px] px-2 py-0.5 border border-white/20 text-white transition-colors flex items-center gap-1">
+                💾 DOWNLOAD_ALL
+            </button>
 
-        <div class="folder group flex flex-col items-center w-24 cursor-pointer" onclick="openWindow('win-logs')">
-            <div class="folder-icon w-16 h-16 bg-purple-900/30 border-2 border-purple-500 rounded-md group-hover:bg-purple-500/50 shadow-[4px_4px_0px_0px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center">
-                <div class="text-xl opacity-20">🛠</div>
-            </div>
-            <span class="text-[10px] mt-2 bg-black px-1 text-center border border-purple-900/50">LOG</span>
+            <!-- INSERT DROPDOWN HERE -->
+            <select id="category-filter" class="hidden bg-black/60 text-purple-300 text-[9px] px-2 py-0.5 border border-purple-400/50 outline-none cursor-pointer hover:border-purple-300 transition-colors">
+                <option value="all">ALL CATEGORIES</option>
+            </select>
+
         </div>
+        <button class="close-btn text-white px-2 hover:bg-red-500 transition-colors">×</button>
+    </div>
+    <div class="window-content p-4 grid grid-cols-1 gap-6 max-h-[650px] overflow-y-auto custom-scrollbar bg-black/50">
+    </div>
+</div>
 
         <div class="folder group flex flex-col items-center w-24 cursor-pointer" onclick="openWindow('win-media')">
             <div class="mt-4 folder-icon w-16 h-16 bg-purple-900/30 border-2 border-purple-500 rounded-md group-hover:bg-purple-500/50 shadow-[4px_4px_0px_0px_rgba(168,85,247,0.3)] transition-all flex items-center justify-center overflow-hidden">        
@@ -220,28 +261,12 @@
             <div class="absolute top-0 left-0 w-full h-1 bg-purple-400 opacity-20 group-hover:animate-pulse"></div>
         </div>
         <span class="text-[10px] mt-2 bg-black px-2 text-center border border-purple-900/50 uppercase text-purple-300 tracking-tighter font-bold">
-            MAIL_CLIENT
+            Send me Mail !!
         </span>
     </div>
     </div>
 
-    <div id="win-logs" class="window hidden absolute top-[15%] left-[10%] w-80 bg-zinc-900 border-2 border-purple-500 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-10">
-        <div class="window-header bg-purple-700 p-1 flex justify-between items-center cursor-move">
-            <span class="text-white text-[10px] font-bold px-2 uppercase">C:\SYSTEM\ARCHIVE\LOGS</span>
-            <button onclick="closeWindow('win-logs')" class="text-white px-2 hover:bg-red-500 transition-colors">×</button>
-        </div>
-        <div class="p-4 text-xs leading-relaxed max-h-64 overflow-y-auto custom-scrollbar">
-            <p class="mb-2 text-purple-400">> 08/02/2026: System Installed</p>
-            <p class="mb-2 text-purple-100">> here are my files and things I edit with</p>
-            <p class="mb-2 text-purple-100">> feel free to use them</p>
-            <p class="mb-2 text-purple-400">> 11/02/2026: Frontend Ready</p>
-            <p class="mb-2 text-purple-400">> 03/03/2026: Domain and Site deployed</p>
-            <p class="text-purple-400">> [END]</p>
-        </div>
-    </div>
-
-    <div id="win-media" class="window hidden absolute top-[25%] left-[30%] w-96 bg-zinc-900 border-2 border-purple-500 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-10">
-    <div class="window-header bg-purple-700 p-1 flex justify-between items-center cursor-move">
+<div id="win-media" class="window hidden absolute top-[20%] left-[25%] w-[520px] max-w-[90vw] bg-zinc-900 border-2 border-purple-500 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-10">    <div class="window-header bg-purple-700 p-1 flex justify-between items-center cursor-move">
         <span class="text-white text-[10px] font-bold px-2 uppercase">C:\USERS\NiQ\Project_FILES</span>
         <button onclick="closeWindow('win-media')" class="text-white px-2 hover:bg-red-500 transition-colors">×</button>
     </div>
@@ -346,6 +371,28 @@
         </span>
         <div class="absolute -top-8 lg:-top-8 left-[-60px] lg:left-1/2 lg:-translate-x-1/2 bg-purple-700 text-[8px] px-1 hidden group-hover:block whitespace-nowrap text-white">SPOTIFY</div>
     </a>
+
+    <a href="https://backloggd.com/u/Chiquita/" target="_blank" class="group relative flex items-center justify-center w-8 h-8 hover:bg-purple-500/20 transition-all" title="BACKLOGGD">
+        <span class="text-lg opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-transform">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstyles.redditmedia.com%2Ft5_2ozgsh%2Fstyles%2FcommunityIcon_9xg7jo7ppiba1.png&f=1&nofb=1&ipt=da4a26fbcd458513aef94ab326e75a1850214a7e7decf8da43ce94a7da177c4b" class="w-full h-full">
+        </span>
+        <div class="absolute -top-8 lg:-top-8 left-[-60px] lg:left-1/2 lg:-translate-x-1/2 bg-purple-700 text-[8px] px-1 hidden group-hover:block whitespace-nowrap text-white">BACKLOGGD</div>
+    </a>
+
+    <a href="https://myfigurecollection.net/profile/Chiquita_Pun/collection/" target="_blank" class="group relative flex items-center justify-center w-8 h-8 hover:bg-purple-500/20 transition-all" title="MYIFIGURECOLLECTION">
+        <span class="text-lg opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-transform">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/90ce0abe-5556-4e8c-b918-883f59d4418d/dgpdgn2-69c774cc-2cfd-4ebc-900a-253432ecc61c.png/v1/fit/w_462,h_710/hatsune_miku__vocaloid__png_by_tvmalaysia123_dgpdgn2-375w-2x.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzEwIiwicGF0aCI6Ii9mLzkwY2UwYWJlLTU1NTYtNGU4Yy1iOTE4LTg4M2Y1OWQ0NDE4ZC9kZ3BkZ24yLTY5Yzc3NGNjLTJjZmQtNGViYy05MDBhLTI1MzQzMmVjYzYxYy5wbmciLCJ3aWR0aCI6Ijw9NDYyIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.hFvyDq01-l3rdsbuKUR4Bugn2yi8Ma6NIoxuJkasz8I" class="w-full h-full">
+        </span>
+        <div class="absolute -top-8 lg:-top-8 left-[-60px] lg:left-1/2 lg:-translate-x-1/2 bg-purple-700 text-[8px] px-1 hidden group-hover:block whitespace-nowrap text-white">MYIFIGURECOLLECTION</div>
+    </a>
+
+    <a href="https://letterboxd.com/Chiquita_pun/" target="_blank" class="group relative flex items-center justify-center w-8 h-8 hover:bg-purple-500/20 transition-all" title="LETTERBOXD">
+        <span class="text-lg opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-transform">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Letterboxd_2023_logo.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" class="w-full h-full">
+        </span>
+        <div class="absolute -top-8 lg:-top-8 left-[-60px] lg:left-1/2 lg:-translate-x-1/2 bg-purple-700 text-[8px] px-1 hidden group-hover:block whitespace-nowrap text-white">LETTERBOXD</div>
+    </a>
+
 
 </div>
 <div id="music-player" class="fixed bottom-12 right-10 z-[100] w-80 bg-black/90 border-2 border-[#DF2D63] p-4 shadow-[4px_4px_0px_#A221A2] font-mono hidden">
