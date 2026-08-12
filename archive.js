@@ -154,11 +154,7 @@ const folderConfigs = {
     },
     "Fonts": {
         note:'Filling soon... uhm yeah',
-        items:[
-            {
-                
-            },
-        ]
+        items:[]
     },
     "PNG/SVG": {
         items: [
@@ -182,16 +178,10 @@ const folderConfigs = {
             ]
         },
 
-    "Overlays": [
-        {
-        note:'yup',
-        items:[
-            {
-                
-            },
-        ]
-        },
-    ],
+    "Overlays": {
+    note: 'yup',
+    items: []
+    },
     "Textures": {
         note:'Textures that are mostly from some Video Editing or Graphic Design Discords that were shared and are free to use (I think at least) some of them are hella big jpgs for some reason, so the preview loads slow... (Textures not in 3D Textures but Overlay Texturing)',
         items: [
@@ -758,18 +748,36 @@ function getYouTubeEmbedUrl(url) {
 
 
 function openDynamicWindow(folderName) {
-    const rawData = folderConfigs[folderName];
+    // Look up key case-insensitively if direct match fails
+    const matchedKey = Object.keys(folderConfigs).find(
+        key => key.toLowerCase() === folderName.toLowerCase()
+    ) || folderName;
+
+    const rawData = folderConfigs[matchedKey];
     const template = document.getElementById('window-template');
     const desktop = document.getElementById('desktop');
 
-    if (!rawData || !template) return;
+    if (!rawData || !template) {
+        console.warn(`[SYSTEM] Folder config not found for: "${folderName}"`);
+        return;
+    }
 
-    // Normalize data: support both plain arrays and { note, items } shapes
-    const isObjectConfig = !Array.isArray(rawData);
-    const data = isObjectConfig ? (rawData.items || []) : rawData;
-    const folderNote = isObjectConfig ? rawData.note : null;
+    // --- ADD THIS BLOCK TO EXTRACT YOUR DATA SAFELY ---
+    let data = [];
+    let folderNote = "";
+    
+    if (Array.isArray(rawData)) {
+        // Handle folders like "Photography" and "Edits"
+        data = rawData;
+    } else if (rawData && typeof rawData === 'object') {
+        // Handle folders like "Resources" and "3D"
+        data = rawData.items || [];
+        folderNote = rawData.note || "";
+    }
+    // --------------------------------------------------
 
-    const cleanId = folderName.replace(/\s+/g, '-').toLowerCase();
+    // Sanitize ID so special characters like '/' don't break queries
+    const cleanId = matchedKey.replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase();
     const existingWin = document.getElementById(`win-dynamic-${cleanId}`);
 
     const getHighestZIndex = () => {
@@ -830,73 +838,90 @@ function openDynamicWindow(folderName) {
         const htmlBuffer = data.map(item => {
             const proxyUrl = formatMediaUrl(item.url);
 
-            if (item.type === 'video') {
-                const embedUrl = getYouTubeEmbedUrl(item.url);
-                return `
-                    <div class="flex flex-col gap-2 mb-4 group/item">
-                        <div class="aspect-video border-2 border-purple-900/50 bg-black overflow-hidden relative">
-                            <iframe 
-                                class="w-full h-full opacity-80 group-hover/item:opacity-100" 
-                                src="${embedUrl}" 
-                                title="${item.label}"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-[9px] text-purple-400 font-bold uppercase tracking-widest">> ${item.label}</span>
-                            <a href="${item.url}" target="_blank" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">Link</a>
-                        </div>
-                    </div>`;
-            } else if (item.type === 'link') {
-                const authorHTML = item.author ? `
-                    <div class="text-[9px] text-purple-400/80 mt-1">
-                        CREATED_BY: ${
-                            item.author.url 
-                            ? `<a href="${item.author.url}" target="_blank" rel="noopener noreferrer" class="text-purple-300 underline hover:text-white">${item.author.name}</a>` 
-                            : `<span class="text-purple-300">${item.author.name}</span>`
-                        }
-                    </div>` : '';
+if (item.type === 'video') {
+    const isYouTube = item.url.includes('youtube.com') || item.url.includes('youtu.be');
 
-                const descriptionHTML = item.description ? `
-                    <p class="text-[10px] text-purple-300/80 leading-relaxed mt-2 border-t border-purple-900/30 pt-2 font-normal normal-case">
-                        ${item.description}
-                    </p>` : '';
-
-                return `
-                    <div class="flex flex-col gap-1 mb-4 p-3 border-2 border-purple-900/50 bg-purple-900/10 hover:bg-purple-900/20 transition-all group/item">
-                        <div class="flex justify-between items-start gap-2">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-1.5">
-                                    <span class="text-purple-400 text-[12px]">🔗</span>
-                                    <span class="text-[11px] text-purple-200 font-bold uppercase tracking-wider group-hover/item:text-white transition-colors">
-                                        ${item.label}
-                                    </span>
-                                </div>
-                                ${authorHTML}
-                            </div>
-                            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="text-[9px] bg-purple-900/40 text-purple-300 px-2.5 py-1 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all whitespace-nowrap font-bold">
-                                VISIT_RESOURCE ↗
-                            </a>
-                        </div>
-                        ${descriptionHTML}
-                    </div>`;
-            } else {
-                return `
-                    <div class="flex flex-col gap-2 mb-4 group/item">
-                        <div class="border-2 border-purple-900/50 bg-purple-900/10 p-1">
-                            <img src="${proxyUrl}" class="w-full opacity-70 group-hover/item:opacity-40 transition-all" alt="${item.label}">
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-[9px] text-purple-400 font-bold uppercase tracking-widest">> ${item.label}</span>
-                            <a target="_blank" href="${proxyUrl}" download="${item.label}" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">VIEW_FULL</a>
-                        </div>
-                    </div>`;
+    if (isYouTube) {
+        const embedUrl = getYouTubeEmbedUrl(item.url);
+        return `
+            <div class="flex flex-col gap-2 mb-4 group/item">
+                <div class="aspect-video border-2 border-purple-900/50 bg-black overflow-hidden relative">
+                    <iframe 
+                        class="w-full h-full opacity-80 group-hover/item:opacity-100" 
+                        src="${embedUrl}" 
+                        title="${item.label}"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-[9px] text-purple-400 font-bold uppercase tracking-widest">> ${item.label}</span>
+                    <a href="${item.url}" target="_blank" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">Link</a>
+                </div>
+            </div>`;
+    } else {
+        // Native Video Player for Backblaze / MP4 files
+        return `
+            <div class="flex flex-col gap-2 mb-4 group/item">
+                <div class="aspect-video border-2 border-purple-900/50 bg-black overflow-hidden relative">
+                    <video controls class="w-full h-full" src="${proxyUrl}"></video>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-[9px] text-purple-400 font-bold uppercase tracking-widest">> ${item.label}</span>
+                    <a href="${proxyUrl}" target="_blank" download class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">VIEW_FULL</a>
+                </div>
+            </div>`;
+    }
+// NOTICE THE CHANGE HERE: Removed the extra }
+} else if (item.type === 'link') {
+    const authorHTML = item.author ? `
+        <div class="text-[9px] text-purple-400/80 mt-1">
+            CREATED_BY: ${
+                item.author.url 
+                ? `<a href="${item.author.url}" target="_blank" rel="noopener noreferrer" class="text-purple-300 underline hover:text-white">${item.author.name}</a>` 
+                : `<span class="text-purple-300">${item.author.name}</span>`
             }
-        }).join('');
-        
-        contentContainer.innerHTML = noteHTML + htmlBuffer;
+        </div>` : '';
+
+    const descriptionHTML = item.description ? `
+        <p class="text-[10px] text-purple-300/80 leading-relaxed mt-2 border-t border-purple-900/30 pt-2 font-normal normal-case">
+            ${item.description}
+        </p>` : '';
+
+    return `
+        <div class="flex flex-col gap-1 mb-4 p-3 border-2 border-purple-900/50 bg-purple-900/10 hover:bg-purple-900/20 transition-all group/item">
+            <div class="flex justify-between items-start gap-2">
+                <div class="flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-purple-400 text-[12px]">🔗</span>
+                        <span class="text-[11px] text-purple-200 font-bold uppercase tracking-wider group-hover/item:text-white transition-colors">
+                            ${item.label}
+                        </span>
+                    </div>
+                    ${authorHTML}
+                </div>
+                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="text-[9px] bg-purple-900/40 text-purple-300 px-2.5 py-1 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all whitespace-nowrap font-bold">
+                    VISIT_RESOURCE ↗
+                </a>
+            </div>
+            ${descriptionHTML}
+        </div>`;
+} else {
+    return `
+        <div class="flex flex-col gap-2 mb-4 group/item">
+            <div class="border-2 border-purple-900/50 bg-purple-900/10 p-1">
+                <img src="${proxyUrl}" class="w-full opacity-70 group-hover/item:opacity-40 transition-all" alt="${item.label}">
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-[9px] text-purple-400 font-bold uppercase tracking-widest">> ${item.label}</span>
+                <a target="_blank" href="${proxyUrl}" download="${item.label}" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">VIEW_FULL</a>
+            </div>
+        </div>`;
+}
+}).join('');
+
+contentContainer.innerHTML = noteHTML + htmlBuffer;
     }
 
     desktop.appendChild(win);
