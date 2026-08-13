@@ -921,8 +921,9 @@ if (item.type === 'video') {
 }
 }).join('');
 
-contentContainer.innerHTML = noteHTML + htmlBuffer;
-    }
+const rawHTML = noteHTML + htmlBuffer;
+contentContainer.innerHTML = DOMPurify.sanitize(rawHTML);    
+}
 
     desktop.appendChild(win);
     

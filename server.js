@@ -15,21 +15,24 @@ app.use(helmet());
 app.use(express.json({ limit: '10kb' }));
 
 // 3. CORS Configuration
-const allowedOrigins = [
-    'https://chiquitapun.github.io',
-    'https://chipun.com',
-    'https://www.chipun.com',
+const isDev = process.env.NODE_ENV === 'development';
+const allowedOrigins = isDev ? [
     'http://localhost:5500',
     'http://127.0.0.1:5500',
     'http://localhost:3000'
+] : [
+    'https://chiquitapun.github.io',
+    'https://chipun.com',
+    'https://www.chipun.com'
 ];
 
 app.use(cors({
     origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
+        // ALLOW if origin is in the list, OR if it's a local tool (!origin) but ONLY in development
+        if (allowedOrigins.includes(origin) || (isDev && !origin)) {
             callback(null, true);
         } else {
-            callback(null, false);
+            callback(null, false); 
         }
     },
     methods: ['GET', 'POST', 'OPTIONS'], // Included GET for Last.fm
@@ -39,6 +42,13 @@ app.use(cors({
 // 4. Initialize Mailer & Rate Limiter
 const resend = new Resend(process.env.RESEND_API_KEY);
 const dailyLimitMs = 24 * 60 * 60 * 1000;
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per window
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 const contactLimiter = rateLimit({
     windowMs: dailyLimitMs, 
@@ -85,7 +95,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
 });
 
 // 6. Last.fm Secure Proxy Route
-app.get('/api/lastfm', async (req, res) => {
+app.get('/api/lastfm', apiLimiter, async (req, res) => {
     try {
         const apiKey = process.env.LASTFM_API_KEY;
         const username = process.env.LASTFM_USERNAME;
