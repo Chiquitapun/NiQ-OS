@@ -1139,9 +1139,31 @@ async function fetchMusicData() {
 // ==========================================
 
 // Start Music
+const MUSIC_POLL_INTERVAL = 30000; // 30s — "now playing" doesn't need faster updates than this
+let musicPollTimer = null;
+
+function startMusicPolling() {
+    if (musicPollTimer) return;
+    fetchMusicData();
+    musicPollTimer = setInterval(fetchMusicData, MUSIC_POLL_INTERVAL);
+}
+
+function stopMusicPolling() {
+    clearInterval(musicPollTimer);
+    musicPollTimer = null;
+}
+
 initVisualizer();
-fetchMusicData();
-setInterval(fetchMusicData, 10000);
+startMusicPolling();
+
+// Pause polling while the tab is in the background, resume (with an instant refresh) when it's active again
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        stopMusicPolling();
+    } else {
+        startMusicPolling();
+    }
+});
 
 // Start Clock
 updateTaskbarTime();

@@ -94,9 +94,18 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     }
 });
 
-// 6. Last.fm Secure Proxy Route
+// 6. Last.fm Secure Proxy Route (with short server-side cache)
+let lastfmCache = { data: null, timestamp: 0 };
+const LASTFM_CACHE_TTL = 20 * 1000; // 20s — simultaneous visitors share this instead of each hitting Last.fm
+
 app.get('/api/lastfm', apiLimiter, async (req, res) => {
     try {
+        const now = Date.now();
+
+        if (lastfmCache.data && (now - lastfmCache.timestamp) < LASTFM_CACHE_TTL) {
+            return res.status(200).json(lastfmCache.data);
+        }
+
         const apiKey = process.env.LASTFM_API_KEY;
         const username = process.env.LASTFM_USERNAME;
 
@@ -105,13 +114,21 @@ app.get('/api/lastfm', apiLimiter, async (req, res) => {
         }
 
         const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
-        
+
         const response = await fetch(url);
         const data = await response.json();
+
+        lastfmCache = { data, timestamp: now };
 
         res.status(200).json(data);
     } catch (error) {
         console.error("LASTFM_ERROR:", error);
+
+        // Serve stale cache rather than erroring out if Last.fm itself is down
+        if (lastfmCache.data) {
+            return res.status(200).json(lastfmCache.data);
+        }
+
         res.status(500).json({ error: "Failed to fetch music data" });
     }
 });
