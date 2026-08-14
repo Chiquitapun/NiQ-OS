@@ -1,6 +1,4 @@
-// ==========================================
-// 1. DATA CONFIGURATION
-// ==========================================
+
 const VAULT_URL = "https://vault.chipun.com";
 const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:3000'
@@ -11,7 +9,7 @@ const folderConfigs = {
 
     "Photography": [
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Outro.mp4', 
             label: 'Outro.mp4' 
         },
@@ -19,57 +17,57 @@ const folderConfigs = {
 
     "Edits": [
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://youtu.be/Rtp7fnad548?si=0Lwa--3SiDy61o_R', 
             label: 'Wowaka - Unknown Mother Goose' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Clips/Cant_Leave_Persona_4/love.mp4', 
             label: 'Love.mp4 (From <a href="https://youtu.be/X7fcDolRbWE?si=IMZtE6J2e1rM0rJP" target="_blank">Why you cant leave Persona 4</a>)' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Clips/Cant_Leave_Persona_4/welcome+to+inaba.mp4', 
             label: 'Welcome to Inaba.mp4 (From <a href="https://youtu.be/X7fcDolRbWE?si=IMZtE6J2e1rM0rJP" target="_blank">Why you cant leave Persona 4</a>)' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Clips/Cant_Leave_Persona_4/load+again.mp4', 
             label: 'Load Again.mp4 (From <a href="https://youtu.be/X7fcDolRbWE?si=IMZtE6J2e1rM0rJP" target="_blank">Why you cant leave Persona 4</a>)' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Clips/Cant_Leave_Persona_4/killer.mp4', 
             label: 'Killer.mp4 (From <a href="https://youtu.be/X7fcDolRbWE?si=IMZtE6J2e1rM0rJP" target="_blank">Why you cant leave Persona 4</a>)' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Clips/The_Unstoppable_Rise_of_Miku/hey hey miku.mp4', 
             label: 'Hey Hey Miku.mp4 (From <a href="https://youtu.be/-CC73f_HTw0?si=mAFqiMJdR8HTWNwV" target="_blank">The Unstoppable Rise of Miku</a>)' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Clips/The_Unstoppable_Rise_of_Miku/pigtailsgohere.mp4', 
             label: 'pigtailsgohere.mp4 (From <a href="https://youtu.be/-CC73f_HTw0?si=mAFqiMJdR8HTWNwV" target="_blank">The Unstoppable Rise of Miku</a>)' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Clips/The_Unstoppable_Rise_of_Miku/world+is+hers.mp4', 
             label: 'world is hers.mp4 (From <a href="https://youtu.be/-CC73f_HTw0?si=mAFqiMJdR8HTWNwV" target="_blank">The Unstoppable Rise of Miku</a>)' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Clips/thebestestofboys/gba_games.mp4', 
             label: 'gba_games.mp4 (From <a href="https://youtu.be/skLmiRw9wNY" target="_blank">The bestest of BOYS - The Game Boy Advance SP</a>)' 
         },
         { 
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://youtu.be/CD4lEaF2BoU?si=0GZ0qYw00ujnmMfY', 
             label: 'NiQ x Arizona (Someday I will get that Sponsor man)' 
         },
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Drawings/miku+fall+compressed.gif', 
             label: 'Miku Fall.gif' 
         },
@@ -77,42 +75,42 @@ const folderConfigs = {
 
     "Drawings": [
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Drawings/wowaka+moon+miku+gif+ver+2.gif', 
             label: 'Miku Wowaka Moon.gif' 
         },
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Drawings/mikufallcloseup-ezgif.com-video-to-gif-converter.gif', 
             label: 'Miku Fall Closeup.gif' 
         },
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image', 
             url: 'https://b2-niqos-proxy.kwdn6505.workers.dev/Own+Works/Drawings/miku+fall+v2.jpg', 
             label: 'Miku Fall.jpg' 
         },
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image', 
             url: 'https://f003.backblazeb2.com/file/NiQ-Archive/Own+Works/Drawings/Rise+P4+Jeans.jpeg', 
             label: 'Rise P4 Jeans.jpeg (24.05.22) reference:https://www.zerochan.net/3513124' 
         },
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image',
             url: 'https://f003.backblazeb2.com/file/NiQ-Archive/Own+Works/Drawings/Nobara+Sketch.jpeg', 
             label: 'Nobara Sketch.jpeg (31.01.22)' 
         },
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image', 
             url: 'https://f003.backblazeb2.com/file/NiQ-Archive/Own+Works/Drawings/Rise+P4+Watermelon.jpeg', 
             label: 'Rise P4 Watermelon.jpeg (25.05.22)' 
         },
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image', 
             url: 'https://f003.backblazeb2.com/file/NiQ-Archive/Own+Works/Drawings/Zero+Drakengard.jpeg', 
             label: 'Zero Drakengard.jpeg (03.01.22)' 
         },
         { 
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image',
             url: 'https://f003.backblazeb2.com/file/NiQ-Archive/Own+Works/Drawings/Girl+with+glasses.jpeg', 
             label: 'Can\'t find the reference anymore (31.10.21)'
         },
@@ -125,12 +123,12 @@ const folderConfigs = {
         note: 'Backgrounds used often (Some are heavily edited from some og source)',
         items:[ 
             {
-            type: 'image', // GIF or webm/mp4 hosted on Backblaze
+            type: 'image', 
             url: 'https://f003.backblazeb2.com/file/NiQ-Archive/%5B01%5D+Resources/Background/vault+bg.gif', 
             label: 'NiQ_BG.gif (Originally from City the Animation)'
             },
             {
-            type: 'video', // GIF or webm/mp4 hosted on Backblaze
+            type: 'video', 
             url: 'https://f003.backblazeb2.com/file/NiQ-Archive/%5B01%5D+Resources/Background/lue+Sky.mp4', 
             label: 'lue sky.mp4'
             },
@@ -165,7 +163,7 @@ const folderConfigs = {
                 description: 'Self explanatory, I use this site a lot for PNGs and Spritesheets'
             },
             {
-                type: 'link', // GIF or webm/mp4 hosted on Backblaze
+                type: 'link',
                 url: 'https://drive.google.com/drive/folders/1XVbJ-0DzkKAtlZFlhHuedwTrQaogs5o4', 
                 label: 'Some Frame pngs (Google Drive)',
                 description: 'Its a Pack from <a href="https://www.youtube.com/@tppoart" target="_blank">tppo</a> Here is the Link of his <a href="https://youtu.be/-QpcCGwUicA?si=iTg4lJbU7fE7vDvK" target="_blank">Video</a>',
@@ -186,22 +184,22 @@ const folderConfigs = {
         note:'Textures that are mostly from some Video Editing or Graphic Design Discords that were shared and are free to use (I think at least) some of them are hella big jpgs for some reason, so the preview loads slow... (Textures not in 3D Textures but Overlay Texturing)',
         items: [
             { 
-                type: 'image', // GIF or webm/mp4 hosted on Backblaze
+                type: 'image', 
                 url: 'https://f003.backblazeb2.com/file/NiQ-Archive/%5B01%5D+Resources/Textures/Grain/Grain+6.jpg', 
                 label: 'Grain6.jpeg'
             },
             { 
-                type: 'image', // GIF or webm/mp4 hosted on Backblaze
+                type: 'image', 
                 url: 'https://f003.backblazeb2.com/file/NiQ-Archive/%5B01%5D+Resources/Textures/Halftone/Halftone+1.png', 
                 label: 'Halftone1.jpeg'
             },
             { 
-                type: 'image', // GIF or webm/mp4 hosted on Backblaze
+                type: 'image', 
                 url: 'https://f003.backblazeb2.com/file/NiQ-Archive/%5B01%5D+Resources/Textures/Halftone/Halftone+10.png', 
                 label: 'Halftone10.jpeg'
             },
             { 
-                type: 'image', // GIF or webm/mp4 hosted on Backblaze
+                type: 'image', 
                 url: 'https://f003.backblazeb2.com/file/NiQ-Archive/%5B01%5D+Resources/Textures/Halftone/Halftone+13.png', 
                 label: 'Halftone13.jpeg'
             },
@@ -641,27 +639,19 @@ const folderConfigs = {
     }
 };
 
-// Automatically rewrites standard Backblaze URLs to use your Cloudflare Worker proxy
 function formatMediaUrl(url) {
     if (!url) return '';
 
-    // If it's a YouTube link, pass it through unchanged
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
         return url;
     }
-
-    // Extract the relative path after the bucket name or domain
-    // Handles formats like: https://f000.backblazeb2.com/file/your-bucket/folder/image.png
-    // Or plain relative paths like: /folder/image.png
     let cleanPath = url;
 
     if (url.includes('/file/')) {
-        // Strips everything up to and including the bucket name
         const parts = url.split('/file/')[1].split('/');
         parts.shift(); // Remove bucket name
         cleanPath = '/' + parts.join('/');
     } else if (url.startsWith('http://') || url.startsWith('https://')) {
-        // If it's another absolute URL, strip the origin domain
         cleanPath = new URL(url).pathname;
     } else if (!cleanPath.startsWith('/')) {
         cleanPath = '/' + cleanPath;
@@ -670,12 +660,6 @@ function formatMediaUrl(url) {
     return `${MEDIA_PROXY_URL}${cleanPath}`;
 }
 
-
-// ==========================================
-// 2. TASKBAR & SYSTEM LOGIC (The "Missing" Parts)
-// ==========================================
-
-// Update the clock every second
 function updateTaskbarTime() {
     const timeDisplay = document.getElementById('taskbar-time');
     if (!timeDisplay) return;
@@ -687,7 +671,6 @@ function updateTaskbarTime() {
     timeDisplay.innerText = `${hours}:${minutes}`;
 }
 
-// Toggle Start Menu visibility
 function toggleStartMenu() {
     const menu = document.getElementById('start-menu');
     if (menu) {
@@ -695,7 +678,6 @@ function toggleStartMenu() {
     }
 }
 
-// Close Start Menu if clicking anywhere else on the desktop
 document.addEventListener('click', (e) => {
     const menu = document.getElementById('start-menu');
     const startBtn = document.querySelector('button[onclick="toggleStartMenu()"]');
@@ -706,7 +688,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// 3. WINDOW & FOLDER LOGIC
+// WINDOW & FOLDER LOGIC
 // ==========================================
 
 function getYouTubeEmbedUrl(url) {
@@ -716,7 +698,6 @@ function getYouTubeEmbedUrl(url) {
         const playlistId = parsedUrl.searchParams.get('list');
         let videoId = parsedUrl.searchParams.get('v');
 
-        // Extract video ID for shorts or youtu.be links
         if (!videoId && parsedUrl.hostname.includes('youtu.be')) {
             videoId = parsedUrl.pathname.slice(1).split('?')[0];
         } else if (!videoId && parsedUrl.pathname.includes('/shorts/')) {
@@ -725,17 +706,14 @@ function getYouTubeEmbedUrl(url) {
 
         if (videoId) videoId = videoId.split('&')[0].split('?')[0];
 
-        // 1. PLAYLIST HANDLING (Must use www.youtube.com, NOT youtube-nocookie.com)
         if (playlistId) {
             if (videoId) {
-                // Video + Playlist queue
                 return `https://www.youtube.com/embed/${videoId}?list=${playlistId}`;
             }
             // Standard Playlist
             return `https://www.youtube.com/embed/videoseries?list=${playlistId}`;
         }
 
-        // 2. SINGLE VIDEO HANDLING
         if (videoId) {
             return `https://www.youtube-nocookie.com/embed/${videoId}`;
         }
@@ -748,7 +726,6 @@ function getYouTubeEmbedUrl(url) {
 
 
 function openDynamicWindow(folderName) {
-    // Look up key case-insensitively if direct match fails
     const matchedKey = Object.keys(folderConfigs).find(
         key => key.toLowerCase() === folderName.toLowerCase()
     ) || folderName;
@@ -762,21 +739,17 @@ function openDynamicWindow(folderName) {
         return;
     }
 
-    // --- ADD THIS BLOCK TO EXTRACT YOUR DATA SAFELY ---
     let data = [];
     let folderNote = "";
     
     if (Array.isArray(rawData)) {
-        // Handle folders like "Photography" and "Edits"
         data = rawData;
     } else if (rawData && typeof rawData === 'object') {
-        // Handle folders like "Resources" and "3D"
         data = rawData.items || [];
         folderNote = rawData.note || "";
     }
     // --------------------------------------------------
 
-    // Sanitize ID so special characters like '/' don't break queries
     const cleanId = matchedKey.replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase();
     const existingWin = document.getElementById(`win-dynamic-${cleanId}`);
 
@@ -821,7 +794,6 @@ function openDynamicWindow(folderName) {
 
     const contentContainer = win.querySelector('.window-content');
     
-    // Generate the pinned note HTML banner if present
     const noteHTML = folderNote ? `
         <div class="p-3 mb-2 bg-purple-950/60 border border-purple-500/40 text-purple-200 text-[10px] leading-relaxed relative overflow-hidden group">
             <div class="flex items-center gap-1.5 text-purple-400 font-bold uppercase tracking-wider mb-1">
@@ -861,7 +833,6 @@ if (item.type === 'video') {
                 </div>
             </div>`;
     } else {
-        // Native Video Player for Backblaze / MP4 files
         return `
             <div class="flex flex-col gap-2 mb-4 group/item">
                 <div class="aspect-video border-2 border-purple-900/50 bg-black overflow-hidden relative">
@@ -873,7 +844,6 @@ if (item.type === 'video') {
                 </div>
             </div>`;
     }
-// NOTICE THE CHANGE HERE: Removed the extra }
 } else if (item.type === 'link') {
     const authorHTML = item.author ? `
         <div class="text-[9px] text-purple-400/80 mt-1">
@@ -936,7 +906,6 @@ contentContainer.innerHTML = DOMPurify.sanitize(rawHTML);
 
 
 
-// Handler function when dropdown category selection changes
 function filterFolderItems(category, folderName) {
     const cleanId = folderName.replace(/\s+/g, '-').toLowerCase();
     const win = document.getElementById(`win-dynamic-${cleanId}`);
@@ -993,10 +962,6 @@ function closeWindow(id) {
     if (win) win.classList.add('hidden');
 }
 
-/**
- * Vault Diagnostic
- * Tests the connection to your Backblaze bucket via Cloudflare
- */
 async function testVaultConnection(fileName) {
     console.log(`%c[SYSTEM] Initializing Vault Link: ${VAULT_URL}/${fileName}`, "color: #00ff00");
     
@@ -1019,7 +984,7 @@ async function testVaultConnection(fileName) {
 
 
 // ==========================================
-// 4. MUSIC PLAYER LOGIC
+// LASTFM PLAYER
 // ==========================================
 
 
@@ -1061,11 +1026,9 @@ function getRelativeTime(uts) {
 async function fetchMusicData() {
     if (!player) return;
 
-    // 1. Force the player to show immediately
     player.classList.remove('hidden');
 
     try {
-        // Fetch through your backend proxy rather than directly exposing API keys
         const response = await fetch(`${API_BASE_URL}/api/lastfm`);
         
         if (!response.ok) {
@@ -1074,7 +1037,6 @@ async function fetchMusicData() {
 
         const data = await response.json();
         
-        // Handle empty data or missing track history
         if (!data.recenttracks || !data.recenttracks.track || data.recenttracks.track.length === 0) {
             if (statusText) statusText.innerText = "NO DATA FOUND";
             return;
@@ -1092,7 +1054,6 @@ async function fetchMusicData() {
         if (trackName) trackName.innerText = (track.name || "UNKNOWN TRACK").toUpperCase();
         if (artistName) artistName.innerText = (track.artist?.['#text'] || track.artist?.name || "UNKNOWN ARTIST").toUpperCase();
         
-        // Safely extract album art
         const artUrl = track.image && track.image[2] ? track.image[2]['#text'] : '';
         if (trackArt) {
             trackArt.src = artUrl || './res/disc_icon.png';
@@ -1134,12 +1095,7 @@ async function fetchMusicData() {
     }
 }
 
-// ==========================================
-// 5. INITIALIZATION
-// ==========================================
-
-// Start Music
-const MUSIC_POLL_INTERVAL = 30000; // 30s — "now playing" doesn't need faster updates than this
+const MUSIC_POLL_INTERVAL = 30000;
 let musicPollTimer = null;
 
 function startMusicPolling() {
@@ -1156,7 +1112,6 @@ function stopMusicPolling() {
 initVisualizer();
 startMusicPolling();
 
-// Pause polling while the tab is in the background, resume (with an instant refresh) when it's active again
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         stopMusicPolling();
@@ -1165,7 +1120,6 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
-// Start Clock
 updateTaskbarTime();
 setInterval(updateTaskbarTime, 1000);
 
@@ -1173,10 +1127,8 @@ const notepad = document.getElementById('win-notepad');
 if (notepad) {
     initDrag(notepad);
     
-    // Focus the notepad on load so you can type immediately
     notepad.querySelector('textarea').focus();
 
-    // Click to bring to front logic
     notepad.onmousedown = () => {
         document.querySelectorAll('.window').forEach(w => w.style.zIndex = "10");
         notepad.style.zIndex = "50";
@@ -1187,7 +1139,6 @@ const showcaseWin = document.getElementById('win-image-showcase');
 if (showcaseWin) {
     initDrag(showcaseWin);
     
-    // Click to bring to front
     showcaseWin.onmousedown = () => {
         document.querySelectorAll('.window').forEach(w => w.style.zIndex = "10");
         showcaseWin.style.zIndex = "50";
@@ -1195,7 +1146,6 @@ if (showcaseWin) {
 }
 
 if (player) {
-    // Enable dragging
     initDrag(player);
     
     // Bring to front on click
@@ -1206,11 +1156,11 @@ if (player) {
 }
 
 /**
- * Opens a retro download prompt for project files
  * @param {string} name - Name of the project
  * @param {string} thumb - Path to the image thumbnail
  * @param {string} fileName - The actual file to be downloaded
  */
+/*
 function openDownloadPrompt(name, thumb, fileName) {
     const prompt = document.getElementById('download-prompt');
     const promptName = document.getElementById('prompt-name');
@@ -1237,19 +1187,17 @@ function openDownloadPrompt(name, thumb, fileName) {
     // Initialize dragging for the new window
     initDrag(prompt);
 }
-
+     */
 /**
  * Handles the actual download logic
- * On the frontend, we create a temporary anchor element.
  */
 function triggerProjectDownload(fileName) {
-    // This is the "Backend" path. Replace with your actual server URL if needed.
     const fileUrl = `${VAULT_URL}/${fileName}`; 
 
     const link = document.createElement('a');
     link.href = fileUrl;
     link.target = "_blank";
-    link.download = fileName; // This triggers the download attribute
+    link.download = fileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -1259,7 +1207,7 @@ function triggerProjectDownload(fileName) {
 
 
 // ==========================================
-// 6. CONTACT / EMAIL UPLINK LOGIC
+// CONTACT / EMAIL
 // ==========================================
 
 function validateEmail(email) {
@@ -1274,13 +1222,11 @@ async function transmitEmail() {
     const progressBar = document.getElementById('modal-progress-bar');
     const statusText = document.getElementById('modal-status-text');
 
-    // Check if fields are empty
     if (!email || !message) {
         alert("CRITICAL_ERROR: FIELDS_EMPTY");
         return;
     }
 
-    // NEW: Check if email format is valid
     if (!validateEmail(email)) {
         alert("CRITICAL_ERROR: INVALID_EMAIL_FORMAT\nEnsure address contains '@' and a valid domain.");
         document.getElementById('contact-email').focus();
@@ -1319,7 +1265,6 @@ async function transmitEmail() {
         } else {
             const errorData = await response.json();
             
-            // Specifically check for our new error code
             if (errorData.error === "DAILY_LIMIT_EXCEEDED") {
                 statusText.innerText = "ERROR: DAILY_QUOTA_REACHED";
                 alert("ACCESS DENIED: You have reached the maximum of 2 messages per day.");
@@ -1359,7 +1304,7 @@ async function transmitEmail() {
 }*/
 
 // ==========================================
-// 7. SYSTEM BOOT / BUFFER CLEAR
+// BUFFER CLEAR
 // ==========================================
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -1367,12 +1312,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const fileStatus = document.getElementById('file-status');
 
     if (fileInput) {
-        // Clear the actual file data
         fileInput.value = ''; 
     }
 
     if (fileStatus) {
-        // Reset the UI label to its default state
         fileStatus.innerText = "UPLOAD";
         fileStatus.className = "text-[10px] text-purple-500";
     }

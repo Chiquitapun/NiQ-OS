@@ -6,15 +6,12 @@ const { Resend } = require('resend');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
-// 1. Initialize Express App
 const app = express();
 app.set('trust proxy', 1);
 
-// 2. Base Security & Body Parsing Middleware
 app.use(helmet());
 app.use(express.json({ limit: '10kb' }));
 
-// 3. CORS Configuration
 const isDev = process.env.NODE_ENV === 'development';
 const allowedOrigins = isDev ? [
     'http://localhost:5500',
@@ -28,24 +25,22 @@ const allowedOrigins = isDev ? [
 
 app.use(cors({
     origin: (origin, callback) => {
-        // ALLOW if origin is in the list, OR if it's a local tool (!origin) but ONLY in development
         if (allowedOrigins.includes(origin) || (isDev && !origin)) {
             callback(null, true);
         } else {
             callback(null, false); 
         }
     },
-    methods: ['GET', 'POST', 'OPTIONS'], // Included GET for Last.fm
+    methods: ['GET', 'POST', 'OPTIONS'], 
     allowedHeaders: ['Content-Type']
 }));
 
-// 4. Initialize Mailer & Rate Limiter
 const resend = new Resend(process.env.RESEND_API_KEY);
 const dailyLimitMs = 24 * 60 * 60 * 1000;
 
 const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per window
+    windowMs: 15 * 60 * 1000, 
+    max: 100, 
     standardHeaders: true,
     legacyHeaders: false,
 });
@@ -61,7 +56,6 @@ const contactLimiter = rateLimit({
     }
 });
 
-// 5. Contact API Route
 app.post('/api/contact', contactLimiter, async (req, res) => {
     const { email, message } = req.body; 
 
@@ -94,9 +88,8 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     }
 });
 
-// 6. Last.fm Secure Proxy Route (with short server-side cache)
 let lastfmCache = { data: null, timestamp: 0 };
-const LASTFM_CACHE_TTL = 20 * 1000; // 20s — simultaneous visitors share this instead of each hitting Last.fm
+const LASTFM_CACHE_TTL = 20 * 1000;
 
 app.get('/api/lastfm', apiLimiter, async (req, res) => {
     try {
@@ -124,7 +117,6 @@ app.get('/api/lastfm', apiLimiter, async (req, res) => {
     } catch (error) {
         console.error("LASTFM_ERROR:", error);
 
-        // Serve stale cache rather than erroring out if Last.fm itself is down
         if (lastfmCache.data) {
             return res.status(200).json(lastfmCache.data);
         }
@@ -133,6 +125,5 @@ app.get('/api/lastfm', apiLimiter, async (req, res) => {
     }
 });
 
-// 7. Start Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`SYSTEM ONLINE: Port ${PORT}`));

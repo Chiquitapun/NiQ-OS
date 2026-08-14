@@ -1,11 +1,9 @@
-/* Fenster-Animation beim Öffnen */
 .window:not(.hidden) {
     display: block;
     animation: windowOpen 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 
-/* Animation wenn das Fenster erscheint */
 .window:not(.hidden) {
     animation: windowOpen 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -21,37 +19,32 @@
     }
 }
 
-/* Verhindert, dass man Text markiert, wenn man nur das Fenster bedienen will */
 .window-header {
     user-select: none;
 }
 
 .window-header {
-    cursor: grab; /* Zeigt eine Hand zum Greifen an */
+    cursor: grab;
 }
 
 .window-header:active {
-    cursor: grabbing; /* Zeigt eine geschlossene Faust beim Ziehen */
+    cursor: grabbing; 
 }
 
-/* Optional: Verhindert, dass Text während des Ziehens markiert wird */
 .window {
     user-select: none;
 }
 
-/* Styling für die Taskleiste-Uhr */
 #taskbar-time {
     font-family: 'Courier New', Courier, monospace;
     text-shadow: 0 0 5px rgba(168, 85, 247, 0.5);
 }
 
-/* Startmenü Button Hover Effekt */
 button[onclick="toggleStartMenu()"]:active {
     box-shadow: inset 2px 2px 0px black;
     transform: translate(1px, 1px);
 }
 
-/* Scrollbar für das Startmenü (falls es länger wird) */
 #start-menu {
     animation: menuSlideUp 0.1s ease-out;
 }
@@ -68,17 +61,16 @@ button[onclick="toggleStartMenu()"]:active {
     background: #1a1a1a;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #7e22ce; /* purple-700 */
+    background: #7e22ce; 
     border: 2px solid #1a1a1a;
 }
 .window-content {
     scrollbar-gutter: stable;
 }
 
-/* SCROLLING TEXT ANIMATION */
 @keyframes marquee {
     0% { transform: translateX(0%); }
-    20% { transform: translateX(0%); } /* Pause at start */
+    20% { transform: translateX(0%); } 
     100% { transform: translateX(-100%); }
 }
 
@@ -93,7 +85,6 @@ button[onclick="toggleStartMenu()"]:active {
     box-shadow: 0 0 5px #DF2D63;
 }
 
-/* Make every other bar purple for style */
 .viz-bar:nth-child(even) {
     background: #A221A2;
     box-shadow: 0 0 5px #A221A2;
@@ -130,14 +121,13 @@ button[onclick="toggleStartMenu()"]:active {
 @media (max-width: 640px) {
     .absolute.right-10.top-10.grid {
         right: 50%;
-        transform: translateX(50%); /* Centers folders on mobile */
-        grid-template-cols: repeat(3, 1fr); /* 3 columns on mobile */
+        transform: translateX(50%); 
+        grid-template-cols: repeat(3, 1fr); 
         gap: 1rem;
     }
 }
 
 
-/* Optional: Subtle pulse for the YouTube light in Start Menu */
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
@@ -167,7 +157,6 @@ button[onclick="toggleStartMenu()"]:active {
     to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
-/* Optional: Add a "Scan" effect to project thumbnails */
 #prompt-thumb {
     position: relative;
 }
@@ -180,7 +169,6 @@ button[onclick="toggleStartMenu()"]:active {
     pointer-events: none;
 }
 
-/* Global Screen Filter */
 body::after {
     content: " ";
     display: block;
@@ -191,16 +179,14 @@ body::after {
     right: 0;
     background: radial-gradient(circle, rgba(15, 0, 26, 0) 50%, rgba(15, 0, 26, 0.4) 100%);
     pointer-events: none;
-    z-index: 10001; /* Above everything for a vignette effect */
+    z-index: 10001; 
 }
 
 #desktop {
     filter: brightness(1.1) contrast(1.1);
-    /* This adds a very slight blur to everything inside the desktop */
     backdrop-filter: blur(0.3px); 
 }
 
-/* Subtle RGB split effect on text (Optional) */
 .text-purple-300 {
     text-shadow: 1px 0px 1px rgba(255,0,0,0.2), -1px 0px 1px rgba(0,0,255,0.2);
 }
@@ -210,18 +196,14 @@ body::after {
     transform: scale(0.98);
 }
 
-/* Make sure the badge doesn't block the click but looks sharp */
 #artist-name-display {
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
-/* Styling for the background GIF */
 .fixed.inset-0.-z-10 img {
-    /* Makes the GIF feel more like a background and less like a video */
     filter: saturate(0.5) contrast(1.2) blur(1px);
     
-    /* Optional: Add a very slow pulse effect */
     animation: bg-pulse 10s ease-in-out infinite;
 }
 
@@ -230,12 +212,10 @@ body::after {
     50% { opacity: 0.2; transform: scale(1.05); }
 }
 
-/* Add this to your CSS */
 #modal-progress-bar {
     transition: width 0.4s ease-out, background-color 0.3s ease;
 }
 
-/* Success color for the bar when it hits 100% */
 .bg-success-green {
     background-color: #22c55e !important;
     box-shadow: 0 0 10px #22c55e;
