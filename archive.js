@@ -1,4 +1,3 @@
-
 const VAULT_URL = "https://vault.chipun.com";
 const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:3000'
@@ -725,6 +724,68 @@ function getYouTubeEmbedUrl(url) {
 
 
 
+function getYouTubeThumbnail(url) {
+    if (!url) return '';
+    try {
+        const parsedUrl = new URL(url);
+        let videoId = parsedUrl.searchParams.get('v');
+
+        if (!videoId && parsedUrl.hostname.includes('youtu.be')) {
+            videoId = parsedUrl.pathname.slice(1).split('?')[0];
+        } else if (!videoId && parsedUrl.pathname.includes('/shorts/')) {
+            videoId = parsedUrl.pathname.split('/shorts/')[1].split('?')[0];
+        }
+
+        if (videoId) {
+            videoId = videoId.split('&')[0].split('?')[0];
+            return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        }
+    } catch (e) {
+        console.error("Thumbnail URL Parsing Error:", e);
+    }
+    return '';
+}
+
+// Click-to-load facade: swaps the thumbnail/play-button placeholder for a real
+// iframe only when clicked, instead of mounting every YouTube embed at once.
+function loadYouTubeEmbed(el) {
+    const embedUrl = el.dataset.embedUrl;
+    const title = el.dataset.title || 'YouTube video';
+    const autoplayUrl = embedUrl + (embedUrl.includes('?') ? '&' : '?') + 'autoplay=1';
+
+    el.outerHTML = `
+        <div class="aspect-video border-2 border-purple-900/50 bg-black overflow-hidden relative">
+            <iframe 
+                class="w-full h-full" 
+                src="${autoplayUrl}" 
+                title="${title}" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+        </div>`;
+}
+
+// Event delegation: DOMPurify strips inline onclick attributes from sanitized HTML,
+// so the YouTube facade is wired up via a single delegated listener instead.
+document.addEventListener('click', (e) => {
+    const facade = e.target.closest('[data-embed-url]');
+    if (facade) {
+        loadYouTubeEmbed(facade);
+        return;
+    }
+
+    // Force a real new tab via JS instead of relying on the anchor's own target="_blank",
+    // since something (a browser setting or extension) can rewrite/strip that attribute.
+    // No width/height/position is passed, so browsers render this as a normal tab, not a popup.
+    const tabLink = e.target.closest('[data-open-tab]');
+    if (tabLink) {
+        e.preventDefault();
+        window.open(tabLink.href, '_blank');
+    }
+});
+
+
 function openDynamicWindow(folderName) {
     const matchedKey = Object.keys(folderConfigs).find(
         key => key.toLowerCase() === folderName.toLowerCase()
@@ -815,21 +876,23 @@ if (item.type === 'video') {
 
     if (isYouTube) {
         const embedUrl = getYouTubeEmbedUrl(item.url);
+        const thumbUrl = getYouTubeThumbnail(item.url);
+        const thumbStyle = thumbUrl ? `background-image:url('${thumbUrl}'); background-size:cover; background-position:center;` : '';
         return `
             <div class="flex flex-col gap-2 mb-4 group/item">
-                <div class="aspect-video border-2 border-purple-900/50 bg-black overflow-hidden relative">
-                    <iframe 
-                        class="w-full h-full opacity-80 group-hover/item:opacity-100" 
-                        src="${embedUrl}" 
-                        title="${item.label}"
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowfullscreen>
-                    </iframe>
+                <div class="aspect-video border-2 border-purple-900/50 bg-black overflow-hidden relative cursor-pointer"
+                     style="${thumbStyle}"
+                     data-embed-url="${embedUrl}"
+                     data-title="${item.label}">
+                    <div class="absolute inset-0 bg-black/30 group-hover/item:bg-black/10 transition-colors flex items-center justify-center">
+                        <div class="w-12 h-12 rounded-full bg-black/70 flex items-center justify-center group-hover/item:bg-red-600/90 transition-colors">
+                            <div class="w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-l-[14px] border-l-white ml-1"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="flex justify-between items-center">
                     <span class="text-[9px] text-purple-400 font-bold uppercase tracking-widest">> ${item.label}</span>
-                    <a href="${item.url}" target="_blank" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">Link</a>
+                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" data-open-tab="true" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">Link</a>
                 </div>
             </div>`;
     } else {
@@ -840,7 +903,7 @@ if (item.type === 'video') {
                 </div>
                 <div class="flex justify-between items-center">
                     <span class="text-[9px] text-purple-400 font-bold uppercase tracking-widest">> ${item.label}</span>
-                    <a href="${proxyUrl}" target="_blank" download class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">VIEW_FULL</a>
+                    <a href="${proxyUrl}" target="_blank" rel="noopener noreferrer" data-open-tab="true" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">VIEW_FULL</a>
                 </div>
             </div>`;
     }
@@ -849,7 +912,7 @@ if (item.type === 'video') {
         <div class="text-[9px] text-purple-400/80 mt-1">
             CREATED_BY: ${
                 item.author.url 
-                ? `<a href="${item.author.url}" target="_blank" rel="noopener noreferrer" class="text-purple-300 underline hover:text-white">${item.author.name}</a>` 
+                ? `<a href="${item.author.url}" target="_blank" rel="noopener noreferrer" data-open-tab="true" class="text-purple-300 underline hover:text-white">${item.author.name}</a>` 
                 : `<span class="text-purple-300">${item.author.name}</span>`
             }
         </div>` : '';
@@ -871,7 +934,7 @@ if (item.type === 'video') {
                     </div>
                     ${authorHTML}
                 </div>
-                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="text-[9px] bg-purple-900/40 text-purple-300 px-2.5 py-1 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all whitespace-nowrap font-bold">
+                <a href="${item.url}" target="_blank" rel="noopener noreferrer" data-open-tab="true" class="text-[9px] bg-purple-900/40 text-purple-300 px-2.5 py-1 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all whitespace-nowrap font-bold">
                     VISIT_RESOURCE ↗
                 </a>
             </div>
@@ -885,7 +948,7 @@ if (item.type === 'video') {
             </div>
             <div class="flex justify-between items-center">
                 <span class="text-[9px] text-purple-400 font-bold uppercase tracking-widest">> ${item.label}</span>
-                <a target="_blank" href="${proxyUrl}" download="${item.label}" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">VIEW_FULL</a>
+                <a target="_blank" href="${proxyUrl}" rel="noopener noreferrer" data-open-tab="true" class="text-[8px] bg-purple-900/30 px-2 py-0.5 border border-purple-500/50 hover:bg-purple-500 hover:text-white transition-all">VIEW_FULL</a>
             </div>
         </div>`;
 }
