@@ -767,7 +767,7 @@ function loadYouTubeEmbed(el) {
 }
 
 // Event delegation: DOMPurify strips inline onclick attributes from sanitized HTML,
-// so the YouTube facade is wired up via a single delegated listener instead.
+// so the YouTube facade, blog entry cards, and blog back button are all wired up here.
 document.addEventListener('click', (e) => {
     const facade = e.target.closest('[data-embed-url]');
     if (facade) {
@@ -782,9 +782,187 @@ document.addEventListener('click', (e) => {
     if (tabLink) {
         e.preventDefault();
         window.open(tabLink.href, '_blank');
+        return;
+    }
+
+    const blogCard = e.target.closest('[data-blog-id]');
+    if (blogCard) {
+        renderBlogEntry(blogCard.dataset.blogId);
+        return;
+    }
+
+    const blogBack = e.target.closest('[data-blog-back]');
+    if (blogBack) {
+        showBlogList();
     }
 });
 
+
+// ==================================================================
+// BLOG APP
+// Add your own entries below — category must be exactly 'Games',
+// 'Anime', or 'Movies' to match the filter dropdown. `image` is an
+// optional hero background (e.g. a link through your Cloudflare/B2
+// proxy); leave it as '' if you don't have one for that entry yet.
+// Set favorite to true to show a heart next to that entry.
+// `text` supports plain HTML — write a normal <a href="...">link</a>
+// or <img src="..."> right in the string to embed links/images; both
+// get styled automatically and links open safely in a new tab.
+// ==================================================================
+const blogEntries = [
+    {
+        id: 'nana',
+        title: 'NANA',
+        category: 'Anime',
+        dateStarted: '2026-08-11',
+        dateFinished: '2026-08-16',
+        releaseDate: '2006-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/nana-osaki-and-nana-komatsu-in-the-nana-anime-2338057635.jpg',
+        favorite: false,
+        text: `Replace this with your actual thoughts on NANA — your analysis, what stuck with you, what didn't work for you, whatever you'd actually want to say about it.`
+    },
+    {
+        id: 'ffv',
+        title: 'Final Fantasy V - Pixel Remaster',
+        category: 'Games',
+        dateStarted: '2026-05-04',
+        dateFinished: '2026-05-11',
+        releaseDate: '2021-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/FFV.jpg',
+        favorite: false,
+        text: `I think this is the Final Fantasy that truly manifested the Franchise as a whole and was the real transition between the classic era and the golden Era of FF.
+Lots of people give FFIV credit for this and yes, FFIV definitely contributed to this, it showed that video games can tell an actual story and hat written characters in it but FFV defined how a Final Fantasy should FEEL.
+It has a nice story, a very fun cast and the gameplay is the best thing here. As a whole I feel like V advanced everything from FFIV, there is a real feel of the big journey here, something that I missed in the Installments before V and something that made every Final Fantasy actually Final Fantasy imo.
+
+I'm not overstating when I say that the Job System here still feels really fresh even tho its a System of a JRPG from the early 90s.
+Even tho it's not a deep System there still are many many ways to experiment with it and combine all Job Skills together and see what works, while, sure there are by now the known combinations that kinda break the game and homogenizes playthroughs, especially when you follow a guide.
+
+My gripes with the game itself is that there is no depth to the cast or characters, while I still like them, and will always remember some scenes from it (The Galuf Scene especially was sick af), the characters as a whole are not memorable tho.
+It is definetely a step back from Cecil and the Story of FFIV as a whole, when talking about the Story.
+Another one is that the game felt a little too long for what it is.
+The main Villain, Exdeath (or X-Death? I still don't know lol), is one of my favorite design of Final Fantasy Villains, so it makes me even more sad that Exdeath is REALLY One-Dimensional.
+
+All and all, this game was pretty fun. AND THE MUSIC BRO
+Lenna's Theme, Battle at the Big Bridge, The Day Will Come, Exdeaths Battle Theme
+All bangers
+
+Maybe this Game will develop a sweet little cushy spot in my heart years later just because of the Music alone. It's a game where I will probably come back with nostalgia and feel more passionate about it but for now it was just a fun game.
+
+Also I feel like Pixel Remasters in general butchered the Difficulty of these games, they are piss easy, when replaying I will turn to the Original or GBA Port `
+    }
+];
+
+function formatBlogDate(dateStr) {
+    if (!dateStr) return '?';
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+// Release dates only need the year - day/month aren't relevant here
+function formatReleaseYear(dateStr) {
+    if (!dateStr) return '?';
+    return String(dateStr).slice(0, 4);
+}
+
+function getWatchedVerb(category) {
+    return category === 'Games' ? 'Played' : 'Watched';
+}
+
+function renderBlogList() {
+    const listEl = document.getElementById('blog-entry-list');
+    if (!listEl) return;
+
+    const searchTerm = (document.getElementById('blog-search')?.value || '').trim().toLowerCase();
+    const category = document.getElementById('blog-category-filter')?.value || 'All';
+
+    const filtered = blogEntries.filter(entry => {
+        const matchesCategory = category === 'All' || entry.category === category;
+        const matchesSearch = !searchTerm || entry.title.toLowerCase().includes(searchTerm);
+        return matchesCategory && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+        listEl.innerHTML = DOMPurify.sanitize(`<div class="text-center text-purple-900/50 text-[10px] py-10 italic">[ NO_ENTRIES_FOUND ]</div>`);
+        return;
+    }
+
+    const html = filtered.map(entry => `
+        <div class="blog-entry-card flex items-center gap-3 bg-purple-900/10 hover:bg-purple-900/30 border border-purple-900/40 hover:border-purple-500 rounded-full px-5 py-2.5 cursor-pointer transition-all" data-blog-id="${entry.id}">
+            <span class="text-sm font-bold text-purple-200 uppercase tracking-wide">${entry.title}</span>
+            ${entry.favorite ? `<span class="text-red-500 text-sm" title="Favorite">♥</span>` : ''}
+            <span class="text-[10px] bg-purple-700/40 border border-purple-500/50 px-2 py-0.5 rounded-full uppercase text-purple-300 shrink-0">${entry.category}</span>
+            <span class="ml-auto text-[10px] text-purple-500 shrink-0 hidden sm:inline">${formatBlogDate(entry.dateStarted)} → ${formatBlogDate(entry.dateFinished)}</span>
+            <span class="text-[10px] text-purple-600 shrink-0">REL: ${formatReleaseYear(entry.releaseDate)}</span>
+        </div>
+    `).join('');
+
+    listEl.innerHTML = DOMPurify.sanitize(html);
+}
+
+function renderBlogEntry(id) {
+    const entry = blogEntries.find(e => e.id === id);
+    if (!entry) return;
+
+    const listView = document.getElementById('blog-list-view');
+    const detailView = document.getElementById('blog-detail-view');
+    if (!listView || !detailView) return;
+
+    const resolvedImage = entry.image ? formatMediaUrl(entry.image) : '';
+    const heroStyle = resolvedImage
+        ? `background-image:url('${resolvedImage}'); background-size:cover; background-position:center;`
+        : '';
+
+    const html = `
+        <div class="relative w-full h-64 overflow-hidden shrink-0 bg-black">
+            <div class="absolute inset-0" style="${heroStyle} opacity:0.25; -webkit-mask-image:linear-gradient(to bottom, black 0%, black 35%, transparent 100%); mask-image:linear-gradient(to bottom, black 0%, black 35%, transparent 100%);"></div>
+            <button data-blog-back="true" class="absolute top-3 left-3 z-20 text-[10px] bg-black/60 hover:bg-purple-700 border border-purple-500/50 px-2 py-1 uppercase text-purple-300 hover:text-white transition-all">← Back</button>
+            <div class="absolute bottom-5 left-6 right-6 z-10">
+                <h2 class="text-4xl font-bold text-white uppercase tracking-widest flex items-center gap-3">
+                    ${entry.title}
+                    ${entry.favorite ? `<span class="text-red-500 text-3xl" title="Favorite">♥</span>` : ''}
+                </h2>
+                <div class="flex flex-wrap gap-2 mt-2 text-[10px] uppercase">
+                    <span class="bg-purple-700/50 border border-purple-500/50 px-2 py-0.5 rounded-full text-purple-200">${entry.category}</span>
+                    <span class="text-purple-400 self-center">${getWatchedVerb(entry.category)}: ${formatBlogDate(entry.dateStarted)} → ${formatBlogDate(entry.dateFinished)}</span>
+                    <span class="text-purple-500 self-center">Released: ${formatReleaseYear(entry.releaseDate)}</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-6 text-[15px] leading-8 text-purple-200 whitespace-pre-line blog-entry-text">${entry.text || ''}</div>
+    `;
+
+    detailView.innerHTML = DOMPurify.sanitize(html);
+
+    // Any link the entry text embeds should open safely in a new tab too,
+    // same as the rest of the site's external links.
+    detailView.querySelectorAll('.blog-entry-text a').forEach(a => {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+        a.setAttribute('data-open-tab', 'true');
+    });
+
+    listView.classList.add('hidden');
+    detailView.classList.remove('hidden');
+    detailView.classList.add('flex');
+    detailView.scrollTop = 0;
+}
+
+function showBlogList() {
+    const listView = document.getElementById('blog-list-view');
+    const detailView = document.getElementById('blog-detail-view');
+    if (detailView) {
+        detailView.classList.add('hidden');
+        detailView.classList.remove('flex');
+    }
+    if (listView) listView.classList.remove('hidden');
+}
+
+function openBlogWindow() {
+    openWindow('win-blog');
+    showBlogList();
+    renderBlogList();
+}
 
 function openDynamicWindow(folderName) {
     const matchedKey = Object.keys(folderConfigs).find(
@@ -1174,6 +1352,9 @@ function stopMusicPolling() {
 
 initVisualizer();
 startMusicPolling();
+
+document.getElementById('blog-search')?.addEventListener('input', renderBlogList);
+document.getElementById('blog-category-filter')?.addEventListener('change', renderBlogList);
 
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
