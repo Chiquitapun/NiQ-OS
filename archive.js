@@ -799,15 +799,7 @@ document.addEventListener('click', (e) => {
 
 
 // ==================================================================
-// BLOG APP
-// Add your own entries below — category must be exactly 'Games',
-// 'Anime', or 'Movies' to match the filter dropdown. `image` is an
-// optional hero background (e.g. a link through your Cloudflare/B2
-// proxy); leave it as '' if you don't have one for that entry yet.
-// Set favorite to true to show a heart next to that entry.
-// `text` supports plain HTML — write a normal <a href="...">link</a>
-// or <img src="..."> right in the string to embed links/images; both
-// get styled automatically and links open safely in a new tab.
+// BLOG 
 // ==================================================================
 const blogEntries = [
     {
@@ -819,7 +811,29 @@ const blogEntries = [
         releaseDate: '2006-04-05',
         image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/nana-osaki-and-nana-komatsu-in-the-nana-anime-2338057635.jpg',
         favorite: false,
-        text: `Replace this with your actual thoughts on NANA — your analysis, what stuck with you, what didn't work for you, whatever you'd actually want to say about it.`
+        text:   `Anime can't really make relationships, interactions and drama feel "real". 
+                There are exceptions of course but I think the one Anime that made this opinion of mine really look like ass was NANA.
+                NANA was so addicting for me after the 6th Episode, it hits like crack.
+                The music is fire, the characters are fire and the Nana with the black hair (the smart one) is FIRE
+                
+                Some bulletpoints:
+
+                -Nana (the stupid one) is kinda stupid. I still love her, also because her stupid decisions make this Anime lol
+
+                -The first Opening is a bimmser
+
+                -I love all the characters but dude only Yasu, Kyousuke and Junko . . . Nah actually Yasu ain't normal either, he is the kindest but dude he for sure has problems because he never thinks of himself and never expresses his own emotions FOR HIMSELF . . . mannnn fuck
+
+                -This Anime would have been so easy on our heart if Nana and Nana would be just gay bro, I ship them hard, they are so sweet together (also lowkey queerbaiting)
+
+                -I love the vibe of the anime, its so comforting even though Nana (the stupid one) makes me so STRESSED HOLY FUCK, she is boosting my cortisol
+
+                -Why is cheating so normal?? not only in Nana but apparently in general in Japan??? (My heart dropped when the red haired guy cheated on Nana, I loved when Nana wanted to beat the shit out of him tho)
+
+                -I still can't figure out Takumi, he for sure is a manipulative asshole and narcissistic but he seems to be really caring for Nana and it really does seem to be Love?? Im not sure man. My prediction tho is that he still will cheat in the manga :( 
+
+                -Favorite Character: Nana of course (and Yasu <<<3).
+                `
     },
     {
         id: 'ffv',
@@ -849,6 +863,36 @@ All bangers
 Maybe this Game will develop a sweet little cushy spot in my heart years later just because of the Music alone. It's a game where I will probably come back with nostalgia and feel more passionate about it but for now it was just a fun game.
 
 Also I feel like Pixel Remasters in general butchered the Difficulty of these games, they are piss easy, when replaying I will turn to the Original or GBA Port `
+    },
+    {
+        id: 'PerfectDays',
+        title: 'Perfect Days',
+        category: 'Movie',
+        dateFinished: '2026-08-30',
+        releaseDate: '2023-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/GKfWu3fWAAAeAZt-763512091.jpg',
+        favorite: false,
+        text:   `Wage Slaving: 🥱🫩🤢
+                Wage Slaving, Japan: 😍🥰`
+    },
+    {
+        id: 'cranesareflying',
+        title: 'The Cranes Are Flying',
+        category: 'Movie',
+        dateFinished: '2026-08-31',
+        releaseDate: '1957-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/vs-untitledfromottvideosonvimeo-9534-982877470.png',
+        favorite: true,
+        text:   `Probably one of the best endings I've ever seen.
+                An ending that came full circle, left me broken and healed me at the same time, gave me hope and left me pessimistic at the same time.
+                When doom and fear retreat, optimism and joy appear.
+
+                I could spend a lot of words and time gushing about the ending and how it made my tears fly, but I think, if you've watched this, you'll understand already.
+                While it made me feel joyous and triggered bittersweet tears (a lot of them), it also made me feel sad, reflecting on the current state of the world and where it seems to be headed.
+
+
+                AND THE VISUALS??? Like, damn bro... the scene where Veronika runs off with the locomotive... this shit got me flabbergasted.
+                Or how the lighting was used in general, especially when shining on their eyes, creating this shiny spark in them... man, fuck.`
     }
 ];
 
