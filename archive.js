@@ -893,6 +893,21 @@ Also I feel like Pixel Remasters in general butchered the Difficulty of these ga
 
                 AND THE VISUALS??? Like, damn bro... the scene where Veronika runs off with the locomotive... this shit got me flabbergasted.
                 Or how the lighting was used in general, especially when shining on their eyes, creating this shiny spark in them... man, fuck.`
+    },
+    {
+        id: 'swinggirls',
+        title: 'Swing Girls',
+        category: 'Movie',
+        dateFinished: '2026-09-06',
+        releaseDate: '2004-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/Screenshot+2026-09-06+191841.png',
+        favorite: false,
+        text:   `this shit was awesome.
+                pure fun and joy, a real comfort movie. fav scene was when the pigs skull was crushed lmao.
+                - Also loved the teacher larping as a pro.
+                - The Ending gave me some goosebumps.
+                - There were some really pretty shots in this movie
+                - Again... really endearing movie`
     }
 ];
 
