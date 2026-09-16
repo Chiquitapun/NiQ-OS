@@ -908,6 +908,37 @@ Also I feel like Pixel Remasters in general butchered the Difficulty of these ga
                 - The Ending gave me some goosebumps.
                 - There were some really pretty shots in this movie
                 - Again... really endearing movie`
+    },
+    {
+        id: 'mishima',
+        title: 'Mishima: A Life in Four Chapters',
+        category: 'Movie',
+        dateFinished: '2026-09-10',
+        releaseDate: '1985-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/8568-3582527369.jpg',
+        favorite: false,
+        text:   `Some of the most beautiful, jaw dropping, and dazzling shots I've ever seen. Many scenes of the book chapters were surreal and will be a core visual memory in my brain for a long time.
+
+Mishima's life and views have me conflicted.
+He obviously is an ultra right wing fascist (not the classic fascist you would associate with, but still a fascist), yet this movie made me still interested and open minded about his views and where he came from.
+
+A man full of contradictions:
+Words are "corrosive poison," a tool which cannot reach reality and are nothing in comparison to real action.
+--Yet he still wrote poetry and tried to reach people in the military with his speech and was a fucking author known for his mastery with words.
+He championed ultra conservatism and preached hardcore masculinity, --yet he still had homosexual tendencies, confirmed by many, and spent his time at gay bars.
+
+So many more points you could list off, but this is what makes his life and person so interesting. I mean, people are talking and writing about him to this day.
+
+Even though I see some of his views as utter nonsense, his life is still weirdly, very weirdly something to admire. Mishima strived for something real, seeking out true beauty, seeking out purity in life. Something you can't really put to words what he was searching for, but perfectly encapsulated in this movie, especially in the scene where he flew the jet.
+
+Seeing death as something to look forward to, death as the most purest and beautiful moment a human can achieve.
+Seeing the own body as a canvas, and bodybuilding as an artform similar to sculpting.
+Seeing aging as decaying and degrading, why he sought to die at his peak, at an early age -"The average age for a man in the Bronze Age was eighteen, in the Roman era, twenty-two. Heaven must have been beautiful then. Today it must look dreadful."
+
+"Beauty is a burden". And in a way, it was a burden on him.
+This man was insane and a victim of his childhood, Japanese society/tradition, and more importantly, himself under his own suppression.
+
+I never read any of his works and was not interested in his life before watching this movie, so I'm not a "Mishima Expert Redditor" or something like that, yet I still somewhat understand why some people seem to not stop talking about this dead man's life.`
     }
 ];
 
