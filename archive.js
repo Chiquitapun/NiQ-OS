@@ -939,6 +939,23 @@ Seeing aging as decaying and degrading, why he sought to die at his peak, at an 
 This man was insane and a victim of his childhood, Japanese society/tradition, and more importantly, himself under his own suppression.
 
 I never read any of his works and was not interested in his life before watching this movie, so I'm not a "Mishima Expert Redditor" or something like that, yet I still somewhat understand why some people seem to not stop talking about this dead man's life.`
+    },
+    {
+        id: 'metroiddread',
+        title: 'Metroid Dread',
+        category: 'Games',
+        dateStarted: '2026-09-12',
+        dateFinished: '2026-09-14',
+        releaseDate: '2021-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/394566-metroid-dread-game-samus-aran-4k-pc-wallpaper-907346269.jpg',
+        favorite: false,
+        text:   `These Speed Booster/Shine Spark Puzzles really be fucking me up.
+
+I fr do not understand how I did not play this when it first released, since I loved the 2D Metroids since I was a half/quarter developed frontal lobe and am still a big fan. 
+
+Dread was so much fucking fun, but, maybe because its nostalgia at this point, I do not think that it comes close to the atmosphere or visuals of Metroid Fusion or even Super Metroid. 
+Neither does the map. None of the areas were really recognizable for me personally, when progressing and backtracking I never was like "Ohhhh so that's how it is now" when changing environment for example or opening up new paths after gaining abilities. It kinda blended all together and became unmemorable. While in the older ones you can really sort areas and bioms to a name. That also goes with the music or the reused bosses at the later part of the game.
+Nevertheless Dread was fun af. Gameplay and Controls wise it's truly the peak of Metroid. Very hyped for Ravenous. I will always be there when Samus farms aura.`
     }
 ];
 
