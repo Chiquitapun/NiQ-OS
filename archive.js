@@ -878,7 +878,7 @@ Also I feel like Pixel Remasters in general butchered the Difficulty of these ga
     {
         id: 'cranesareflying',
         title: 'The Cranes Are Flying',
-        category: 'Movie',
+        category: 'Movies',
         dateFinished: '2026-08-31',
         releaseDate: '1957-04-05',
         image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/vs-untitledfromottvideosonvimeo-9534-982877470.png',
@@ -897,7 +897,7 @@ Also I feel like Pixel Remasters in general butchered the Difficulty of these ga
     {
         id: 'swinggirls',
         title: 'Swing Girls',
-        category: 'Movie',
+        category: 'Movies',
         dateFinished: '2026-09-06',
         releaseDate: '2004-04-05',
         image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/Screenshot+2026-09-06+191841.png',
@@ -912,7 +912,7 @@ Also I feel like Pixel Remasters in general butchered the Difficulty of these ga
     {
         id: 'mishima',
         title: 'Mishima: A Life in Four Chapters',
-        category: 'Movie',
+        category: 'Movies',
         dateFinished: '2026-09-10',
         releaseDate: '1985-04-05',
         image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/8568-3582527369.jpg',
@@ -956,7 +956,116 @@ I fr do not understand how I did not play this when it first released, since I l
 Dread was so much fucking fun, but, maybe because its nostalgia at this point, I do not think that it comes close to the atmosphere or visuals of Metroid Fusion or even Super Metroid. 
 Neither does the map. None of the areas were really recognizable for me personally, when progressing and backtracking I never was like "Ohhhh so that's how it is now" when changing environment for example or opening up new paths after gaining abilities. It kinda blended all together and became unmemorable. While in the older ones you can really sort areas and bioms to a name. That also goes with the music or the reused bosses at the later part of the game.
 Nevertheless Dread was fun af. Gameplay and Controls wise it's truly the peak of Metroid. Very hyped for Ravenous. I will always be there when Samus farms aura.`
-    }
+    },
+    {
+        id: 'lalaland',
+        title: 'La La Land',
+        category: 'Movies',
+        dateFinished: '2026-09-18',
+        releaseDate: '2016-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/la-la-land-703200712.jpg',
+        favorite: false,
+        text:   `Not as heartbreaking as I hoped to be, it was bittersweet tho
+        -Loved the Choreography and Songs
+        -I liked their dynamic
+        -Its a really nice story about dreams and giving things up
+        -The last sequence was awesome
+        `
+    },
+    {
+        id: 'mother',
+        title: 'Mother',
+        category: 'Movies',
+        dateFinished: '2026-09-19',
+        releaseDate: '2009-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/mother_1-1217820669.jpg',
+        favorite: false,
+        text:   `the last 40min or so was everything man.
+        -Lowkey had goosebumbs at the end
+        -This is my third movie from Bong Joon Ho, and yes... this man can cook bro
+        -When someone gets hit on the head in his movies I feel it with my entire being, how does this work
+        `
+    },
+    {
+        id: 'misssunshine',
+        title: 'Little Miss Sunshine',
+        category: 'Movies',
+        dateFinished: '2026-04-30',
+        releaseDate: '2006-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/Little.Miss.Sunshine.2006_@Ti_03884_@R1620-1059906937.jpg',
+        favorite: false,
+        text:   `Child Beauty Pageants are pedophilic and disgusting
+
+        Other than that this Movie gave me dopamine and huge enjoyment, I would absolutely kiss Steve Carell in this one (not gay)
+        `
+    },
+    {
+        id: 'spaceodyssey',
+        title: '2001: A Space Odyssey',
+        category: 'Movies',
+        dateFinished: '2026-02-27',
+        releaseDate: '1968-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/689244-2651351865.jpg',
+        favorite: false,
+        text:   `Literally nothing happens for over an hour, and no it's not because of my attention span that I could not sit through this movie. I don't think any shot here has purpose, every scene is way too long, boring af and everyone who says they liked and enjoyed this is lying and a poser, im sorry.
+This movie pissed me off lmao.
+I get that it was crazy for it's time, I get that the visuals and imagery is still great to look at even for today, I get that this movie was a huge inspiration for other sci-fi works after it.
+It still is a gruesome and sluggish watch
+        `
+    },
+    {
+        id: 'nootherchoice',
+        title: 'No Other Choice',
+        category: 'Movies',
+        dateFinished: '2026-02-25',
+        releaseDate: '2025-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/s6aB9kjxNg0mu2361IkCUSpyHJV-709237521.jpg',
+        favorite: false,
+        text:   `I think this guy might be a bit crazy
+        -The Movie seems funny, and it is sometimes ridiculous but it's truly fucked up how much worth is placed on a human being for just being employed in our system. Its your only worth as human being, to provide and work.
+        `
+    },
+    {
+        id: 'midsommar',
+        title: 'Midsommar',
+        category: 'Movies',
+        dateFinished: '2025-09-22',
+        releaseDate: '2019-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/5020569-161347987.jpg',
+        favorite: false,
+        text:   `That post-nut clarity must've hit hard af
+        -This was kinda garbage tbh
+        `
+    },
+    {
+        id: 'malkovich',
+        title: 'Being John Malkovich',
+        category: 'Movies',
+        dateFinished: '2026-09-07',
+        releaseDate: '1999-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/Movie-still-John-Cusack-Being-John-Malkovich-1999-491737203.jpg',
+        favorite: false,
+        text:   `How do you even call this type of triangle relationship, this is some whole other version of idk even what.
+        -It's crazy how you can come up with this lmao, really fun premise
+        -It was really funny to learn that John Malkovich is actually a real person/actor irl
+        -Malkovich?
+        `
+    },
+    {
+        id: 'killer7',
+        title: 'Killer7',
+        category: 'Games',
+        dateStarted: '2026-06-21',
+        dateFinished: '2026-06-23',
+        releaseDate: '2005-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/868520_37.jpg',
+        favorite: false,
+        text:   `There will be never something like this again. One of a kind.
+        Weirdly comforting when playing for me. I loved the visuals, the music, the dumb story (which gets serious af at the end and is a mess), the sound effects, just everything.
+        I just am happy to see everything what this game has to offer, what kind of bullshit it will serve you, the aesthetics and setting. I adore the TV channel switching and listen to every line of the characters
+        Idk but its kinda hard to point out what exactly makes this games so special. I for sure will make a Video about it someday`
+    },
+
 ];
 
 function formatBlogDate(dateStr) {
