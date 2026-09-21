@@ -1065,6 +1065,19 @@ It still is a gruesome and sluggish watch
         I just am happy to see everything what this game has to offer, what kind of bullshit it will serve you, the aesthetics and setting. I adore the TV channel switching and listen to every line of the characters
         Idk but its kinda hard to point out what exactly makes this games so special. I for sure will make a Video about it someday`
     },
+    {
+        id: 'mickey17',
+        title: 'Mickey 17',
+        category: 'Games',
+        dateStarted: '2026-06-21',
+        dateFinished: '2026-06-23',
+        releaseDate: '2005-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/Screenshot+2026-09-20+215210.png',
+        favorite: true,
+        text:   `
+This Movie has 2x more Pattinson than any other movie so it's automatically peak.
+`
+    },
 
 ];
 
