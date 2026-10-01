@@ -1068,15 +1068,40 @@ It still is a gruesome and sluggish watch
     {
         id: 'mickey17',
         title: 'Mickey 17',
-        category: 'Games',
-        dateStarted: '2026-06-21',
-        dateFinished: '2026-06-23',
-        releaseDate: '2005-04-05',
+        category: 'Movies',
+        dateFinished: '2026-09-20',
+        releaseDate: '2025-04-05',
         image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/Screenshot+2026-09-20+215210.png',
         favorite: true,
         text:   `
 This Movie has 2x more Pattinson than any other movie so it's automatically peak.
 `
+    },
+    {
+        id: 'coyotevacme',
+        title: 'Coyote vs. Acme',
+        category: 'Movies',
+        dateFinished: '2026-09-27',
+        releaseDate: '2026-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/Screenshot%2B2025-11-20%2Bat%2B6.17.40+AM-989980032.jpg',
+        favorite: true,
+        text:   `
+Funny how they did not want to release this Movie... I wonder why.
+-Movie was fun af
+-had tears in my eyes when he said meep meep
+-acme logo kinda looks like adobe logo huh`
+    },
+    {
+        id: 'residentevilmovie',
+        title: 'Resident Evil',
+        category: 'Movies',
+        dateFinished: '2026-09-28',
+        releaseDate: '2026-04-05',
+        image: 'https://f003.backblazeb2.com/file/NiQ-Archive/NiQ-OS/Heroes/Resident-Evil-2026-03-1068x603-2193602133.jpg',
+        favorite: true,
+        text:   `
+this guy must LOVE his job
+-was aight`
     },
 
 ];
